@@ -1,0 +1,91 @@
+﻿<Page x:Class="MovieDB.View.MoviesListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MovieDB.View"
+      xmlns:vm="clr-namespace:MovieDB.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="580" d:DesignWidth="830"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      Title="MoviesListPage">
+    <!--<Page.DataContext>
+        <vm:MoviesListVM/>
+    </Page.DataContext>-->
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowMovies}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <!--<ListView 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Height="44" Width="345"
+            ItemsSource="{Binding MoviesList}"
+            Margin="135,0,0,0"
+            >
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn DisplayMemberBinding="{Binding Cover}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+
+        <!--<DataGrid 
+            HorizontalAlignment="Left" 
+            Height="343" Width="135"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding MoviesList}"/>-->
+
+        <ListBox
+            x:Name="Movies"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Height="492" Width="830"
+            ItemsSource="{Binding MoviesList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="75" Width="215" Orientation="Horizontal">
+                        <Image Source="{Binding Cover}"  Width="84"/>
+                        <TextBlock Text="{Binding Title}"
+                                   Width="Auto"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowMovieInfo}"
+                        CommandParameter= "{Binding ElementName=Movies}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <Grid HorizontalAlignment="Left" Height="73" Margin="328,497,0,0" VerticalAlignment="Top" Width="492">
+            <Button 
+                Content="Обновить" 
+                HorizontalAlignment="Left" VerticalAlignment="Top"  
+                Height="47" Width="116"
+                Command="{Binding ShowMovies}"
+                IsEnabled="{Binding IsEnabled}"
+                Margin="10,10,10,10"/>
+            <Button 
+                Content="Добавить фильм" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Margin="341,10,0,0"
+                Width="118" Height="47"
+                Command="{Binding AddMovie}"
+                IsEnabled="{Binding IsEnabled}"/>
+            <Button 
+                Content="Удалить фильм" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Margin="181,10,0,0"
+                Width="118" Height="47"
+                Command="{Binding RemoveMovie}"
+                IsEnabled="{Binding IsEnabled}"/>
+        </Grid>
+    </Grid>
+</Page>
