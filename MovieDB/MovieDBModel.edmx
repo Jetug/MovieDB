@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MoviesDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Movies.dbo.Accounts" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="login" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Actors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="photo" Type="image" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="100" />
+          <Property Name="birth_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Directors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="birth_date" Type="date" Nullable="false" />
+          <Property Name="sex" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="ntext" Nullable="false" />
+          <Property Name="cover" Type="image" />
+          <Property Name="duration" Type="int" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoviesActors">
+          <Key>
+            <PropertyRef Name="movie_id" />
+            <PropertyRef Name="actor_id" />
+          </Key>
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="actor_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoviesDirectors">
+          <Key>
+            <PropertyRef Name="movie_id" />
+            <PropertyRef Name="director_id" />
+          </Key>
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="director_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoviesGenres">
+          <Key>
+            <PropertyRef Name="movie_id" />
+            <PropertyRef Name="genre" />
+          </Key>
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_movies_directors_Directors">
+          <End Role="Directors" Type="Self.Directors" Multiplicity="1" />
+          <End Role="MoviesDirectors" Type="Self.MoviesDirectors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Directors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MoviesDirectors">
+              <PropertyRef Name="director_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movies_directors_movies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MoviesDirectors" Type="Self.MoviesDirectors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MoviesDirectors">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movies_genres_genres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="name" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_movies_genres_movies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MoviesGenres" Type="Self.MoviesGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MoviesGenres">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies-acrors_actors">
+          <End Role="Actors" Type="Self.Actors" Multiplicity="1" />
+          <End Role="MoviesActors" Type="Self.MoviesActors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MoviesActors">
+              <PropertyRef Name="actor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies-acrors_movies">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MoviesActors" Type="Self.MoviesActors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MoviesActors">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MoviesDBModelContainer">
+          <EntitySet Name="Actors" EntityType="Self.Actors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Directors" EntityType="Self.Directors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoviesActors" EntityType="Self.MoviesActors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoviesDirectors" EntityType="Self.MoviesDirectors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoviesGenres" EntityType="Self.MoviesGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Accounts].[login] AS [login], 
+    [Accounts].[password] AS [password], 
+    [Accounts].[role] AS [role]
+    FROM [dbo].[Accounts] AS [Accounts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_movies_directors_Directors" Association="Self.FK_movies_directors_Directors">
+            <End Role="Directors" EntitySet="Directors" />
+            <End Role="MoviesDirectors" EntitySet="MoviesDirectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movies_directors_movies" Association="Self.FK_movies_directors_movies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MoviesDirectors" EntitySet="MoviesDirectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movies_genres_genres" Association="Self.FK_movies_genres_genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_movies_genres_movies" Association="Self.FK_movies_genres_movies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MoviesGenres" EntitySet="MoviesGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies-acrors_actors" Association="Self.FK_Movies-acrors_actors">
+            <End Role="Actors" EntitySet="Actors" />
+            <End Role="MoviesActors" EntitySet="MoviesActors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies-acrors_movies" Association="Self.FK_Movies-acrors_movies">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MoviesActors" EntitySet="MoviesActors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MoviesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="birth_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Movies" Relationship="Self.MoviesActors" FromRole="Actors" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="Directors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="birth_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sex" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.MoviesDirectors" FromRole="Directors" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.MoviesGenres" FromRole="Genres" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cover" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Actors" Relationship="Self.MoviesActors" FromRole="Movies" ToRole="Actors" />
+          <NavigationProperty Name="Directors" Relationship="Self.MoviesDirectors" FromRole="Movies" ToRole="Directors" />
+          <NavigationProperty Name="Genres" Relationship="Self.MoviesGenres" FromRole="Movies" ToRole="Genres" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="login" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="role" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="MoviesActors">
+          <End Role="Actors" Type="Self.Actors" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+        </Association>
+        <Association Name="MoviesDirectors">
+          <End Role="Directors" Type="Self.Directors" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+        </Association>
+        <Association Name="MoviesGenres">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actors" EntityType="Self.Actors" />
+          <EntitySet Name="Directors" EntityType="Self.Directors" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" />
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" />
+          <AssociationSet Name="MoviesActors" Association="Self.MoviesActors">
+            <End Role="Actors" EntitySet="Actors" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="MoviesDirectors" Association="Self.MoviesDirectors">
+            <End Role="Directors" EntitySet="Directors" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="MoviesGenres" Association="Self.MoviesGenres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MoviesDBModelContainer" CdmEntityContainer="MoviesEntities">
+          <EntitySetMapping Name="Actors">
+            <EntityTypeMapping TypeName="MoviesDBModel.Actors">
+              <MappingFragment StoreEntitySet="Actors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Directors">
+            <EntityTypeMapping TypeName="MoviesDBModel.Directors">
+              <MappingFragment StoreEntitySet="Directors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="MoviesDBModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="MoviesDBModel.Movies">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="cover" ColumnName="cover" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="MoviesDBModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MoviesActors" TypeName="MoviesDBModel.MoviesActors" StoreEntitySet="MoviesActors">
+            <EndProperty Name="Actors">
+              <ScalarProperty Name="id" ColumnName="actor_id" />
+            </EndProperty>
+            <EndProperty Name="Movies">
+              <ScalarProperty Name="id" ColumnName="movie_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="MoviesDirectors" TypeName="MoviesDBModel.MoviesDirectors" StoreEntitySet="MoviesDirectors">
+            <EndProperty Name="Directors">
+              <ScalarProperty Name="id" ColumnName="director_id" />
+            </EndProperty>
+            <EndProperty Name="Movies">
+              <ScalarProperty Name="id" ColumnName="movie_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="MoviesGenres" TypeName="MoviesDBModel.MoviesGenres" StoreEntitySet="MoviesGenres">
+            <EndProperty Name="Genres">
+              <ScalarProperty Name="name" ColumnName="genre" />
+            </EndProperty>
+            <EndProperty Name="Movies">
+              <ScalarProperty Name="id" ColumnName="movie_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

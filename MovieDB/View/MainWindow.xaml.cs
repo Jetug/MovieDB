@@ -1,4 +1,5 @@
-﻿using MovieDB.Tables;
+﻿using MovieDB.Model;
+using MovieDB.Tables;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows;
@@ -13,6 +14,15 @@ namespace MovieDB
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var rep = new MovieDBRepository();
+            foreach (var actor in rep.GetActors())
+            {
+                MessageBox.Show($"{actor.Name}; {actor.Movies.Count}");
+            }
         }
     }
 }

@@ -10,14 +10,11 @@ C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MainWindow.baml
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.g.resources
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.Properties.Resources.resources
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.csproj.GenerateResource.cache
-C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.csproj.CoreCompileInputs.cache
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.exe
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.pdb
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MoviePage.g.cs
-C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\TestPage.g.cs
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MoviePage.baml
-C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\TestPage.baml
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MoviesListPage.g.cs
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MoviesListPage.baml
 C:\Projects\C#\MovieDB\MovieDB\bin\Debug\Microsoft.Expression.Interactions.dll
@@ -25,3 +22,12 @@ C:\Projects\C#\MovieDB\MovieDB\bin\Debug\System.Windows.Interactivity.dll
 C:\Projects\C#\MovieDB\MovieDB\bin\Debug\Microsoft.Expression.Interactions.xml
 C:\Projects\C#\MovieDB\MovieDB\bin\Debug\System.Windows.Interactivity.xml
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.csproj.CopyComplete
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorsListPage.g.cs
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorsListPage.baml
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorPage.g.cs
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorPage.baml
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.dll
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.SqlServer.dll
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.xml
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.SqlServer.xml
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB_Content.g.cs

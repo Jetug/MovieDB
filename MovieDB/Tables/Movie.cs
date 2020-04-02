@@ -5,12 +5,17 @@ namespace MovieDB.Tables
 {
     class Movie
     {
-        public int ID { get; set; } = 0;
+        public int Id { get; set; } = 0;
         public string Title { get; set; } = "";
         public string Description { get; set; } = "";
-        public BitmapImage Cover { get; set; } = null;
+        public byte[] Cover { get; set; } = null;
         public int Duration { get; set; } = 0;
         public int Year { get; set; } = 0;
-        public List<int> ActorsID { get; set; } = new List<int>();
+        public ICollection<Actor> Actors { get; set; }
+
+        public Movie()
+        {
+            Actors = new List<Actor>();
+        }
     }
 }

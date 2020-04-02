@@ -7,20 +7,20 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="580" d:DesignWidth="830"
-      Title="MoviePage">
+      Title="{Binding Movie.Title}">
 
     <Grid>
         <Image 
             Source="{Binding Movie.Cover}"
             HorizontalAlignment="Left" Height="310"
-            Margin="22,22,0,0" 
+            Margin="22,25,0,0" 
             VerticalAlignment="Top" Width="234"/>
         <TextBox
             x:Name="title"
             Text="{Binding Movie.Title}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,43,0,0"
+            Margin="398,25,0,0"
             Height="25" Width="362">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
@@ -31,30 +31,39 @@
             </i:Interaction.Triggers>
         </TextBox>
         <Label 
-            Content="Актёры" HorizontalAlignment="Left" Margin="284,195,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="80" Height="39"/>
+            Content="Актёры" 
+            HorizontalAlignment="Left"
+            Margin="285,200,0,0" VerticalAlignment="Top" 
+            Width="80" Height="25"/>
         <Label 
-            Content="Название" HorizontalAlignment="Left" Margin="284,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Height="25" Width="81"/>
+            Content="Название" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="284,25,0,0" 
+            Height="25" Width="81"/>
         <Label 
             Content="[Actors]" 
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,195,0,0"
+            Margin="398,165,0,0"
             Height="39" Width="362"/>
         <Label 
-            Content="Год" HorizontalAlignment="Left" Margin="284,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="80" Height="25"/>
+            Content="Год" 
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="284,60,0,0"
+            Width="80" Height="25"/>
         <Label 
             Content="Сюжет"
             HorizontalAlignment="Left" 
-            Margin="284,287,0,0" 
+            Margin="284,330,0,0" 
             VerticalAlignment="Top"
-            Width="80" Height="39"/>
+            Width="80" Height="25"/>
         <TextBox 
             x:Name="description"
             Text="{Binding Movie.Description}" 
             IsReadOnly="{Binding ReadOnly}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,286,0,0"
-            Height="169" Width="362">
+            Margin="398,330,0,0"
+            Height="123" Width="358">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction 
@@ -90,7 +99,7 @@
             Command="{Binding EditCover}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="22,345,0,0" 
+            Margin="22,348,0,0" 
             Width="115" Height="37"/>
         <Button 
             Content="Удалить" 
@@ -100,18 +109,22 @@
             Margin="661,494,0,0" 
             Width="103" Height="50"/>
         <Label 
-            Content="Режиссёр" HorizontalAlignment="Left" Margin="284,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="80" Height="28"/>
+            Content="Режиссёр" 
+            HorizontalAlignment="Left" 
+            Margin="284,130,0,0" 
+            VerticalAlignment="Top" 
+            Width="80" Height="28"/>
         <Label 
             Content="[Actors]" 
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,157,0,0"
+            Margin="398,130,0,0"
             Height="28" Width="362"/>
         <TextBox
             x:Name="year"
             Text="{Binding Movie.Year}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,82,0,0"
+            Margin="398,60,0,0"
             Height="25" Width="362">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
@@ -122,13 +135,16 @@
             </i:Interaction.Triggers>
         </TextBox>
         <Label 
-            Content="Хронометраж" HorizontalAlignment="Left" Margin="284,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="113" Height="25"/>
+            Content="Хронометраж" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="284,95,0,0" 
+            Width="113" Height="25"/>
         <TextBox
             x:Name="duration"
             Text="{Binding Movie.Duration}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,121,0,0"
+            Margin="398,95,0,0"
             Height="25" Width="362">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
@@ -139,12 +155,31 @@
             </i:Interaction.Triggers>
         </TextBox>
         <Label 
-            Content="Жанры" HorizontalAlignment="Left" Margin="284,234,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="80" Height="39"/>
-        <Label 
-            Content="[Actors]" 
+            Content="Жанры"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,234,0,0"
-            Height="39" Width="362"/>
-       
+            Margin="284,165,0,0"
+            Width="80" Height="28"/>
+        <ListBox
+            ItemsSource="{Binding Movie.Actors}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="398,200,0,0" 
+            Height="102" Width="358">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="100" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Surname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowMovieInfo}"
+                        CommandParameter= "{Binding ElementName=Movies}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
     </Grid>
 </Page>

@@ -3,12 +3,9 @@ using MovieDB.Model;
 using MovieDB.Tables;
 using MovieDB.View;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,7 +29,7 @@ namespace MovieDB.ViewModel
             View = moviePage;
         }
 
-        private MainModel model = new MainModel();
+        private EntityModel model = new EntityModel();
         public Page View { get; private set; }
 
         #region Свойства
@@ -145,7 +142,8 @@ namespace MovieDB.ViewModel
                 if (fileDialog.ShowDialog() == true) fileName = fileDialog.FileName;
                 if (fileName != "")
                 {
-                    Movie.Cover = new BitmapImage(new Uri(fileName));
+                    //Movie.Cover = new BitmapImage(new Uri(fileName));
+                    Movie.Cover = File.ReadAllBytes(fileName);
                 }
                 OnProperteyChanged("Movie");
             });
@@ -155,7 +153,13 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                Movie.Duration = int.Parse(((TextBox)obj).Text);
+                try
+                {
+                    Movie.Duration = int.Parse(((TextBox)obj).Text);
+                }
+                catch (FormatException)
+                {
+                }
                 OnProperteyChanged("Movie");
             });
         }
@@ -164,7 +168,14 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                Movie.Year = int.Parse(((TextBox)obj).Text);
+                try
+                {
+                    Movie.Year = int.Parse(((TextBox)obj).Text);
+                }
+                catch (FormatException)
+                {
+                }
+                
                 OnProperteyChanged("Movie");
             });
         }
@@ -173,7 +184,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.RecordMovie(Movie, RecordMode.Adding);
+                model.RecordMovie(Movie);
             });
         }
 
@@ -181,7 +192,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.RecordMovie(Movie, RecordMode.Update);
+                model.UpdateMovie(Movie);
             });
         }
 
@@ -189,8 +200,9 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.RemoveMovie(Movie, RecordMode.Update);
+                model.RemoveMovie(Movie);
             });
+
         }
         #endregion
     }

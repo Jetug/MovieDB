@@ -26,11 +26,11 @@ namespace MovieDB.ViewModel
         public Action<Page> ChangePage;
 
         public Page View { get; private set; }
-        private MainModel model = new MainModel();
+        private EntityModel model = new EntityModel();
 
         public MoviesListVM()
         {
-            model.ShowResults = (moviesList) => MoviesList = moviesList;
+            model.ShowMovies = (moviesList) => MoviesList = moviesList;
             model.BtnEnabled = () => IsEnabled = true;
             model.BtnNotEnabled = () => IsEnabled = false;
 
@@ -67,7 +67,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.Start();
+                model.GetMoviesList();
             });
         }
 
@@ -93,7 +93,6 @@ namespace MovieDB.ViewModel
                 moviePageVM.AdminMode = true;
                 moviePageVM.EditMode = true;
                 ChangePage(moviePageVM.View);
-
             });
         }
 

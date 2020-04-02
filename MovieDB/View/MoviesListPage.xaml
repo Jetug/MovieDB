@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="580" d:DesignWidth="830"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      Title="MoviesListPage">
+      Title="Фильмы">
     <!--<Page.DataContext>
         <vm:MoviesListVM/>
     </Page.DataContext>-->
@@ -20,38 +20,17 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <!--<ListView 
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" 
-            Height="44" Width="345"
-            ItemsSource="{Binding MoviesList}"
-            Margin="135,0,0,0"
-            >
-            <ListView.View>
-                <GridView >
-                    <GridViewColumn DisplayMemberBinding="{Binding Cover}"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Title}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-
-        <!--<DataGrid 
-            HorizontalAlignment="Left" 
-            Height="343" Width="135"
-            VerticalAlignment="Top"
-            ItemsSource="{Binding MoviesList}"/>-->
-
         <ListBox
             x:Name="Movies"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Height="492" Width="830"
-            ItemsSource="{Binding MoviesList}">
+            Height="502" Width="830"
+            ItemsSource="{Binding MoviesList}" Margin="-2,0,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Height="75" Width="215" Orientation="Horizontal">
-                        <Image Source="{Binding Cover}"  Width="84"/>
+                    <StackPanel Height="100" Orientation="Horizontal">
+                        <Image Source="{Binding Cover}"  Width="80"/>
                         <TextBlock Text="{Binding Title}"
-                                   Width="Auto"/>
+                                   FontSize="20"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -64,28 +43,34 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
-        <Grid HorizontalAlignment="Left" Height="73" Margin="328,497,0,0" VerticalAlignment="Top" Width="492">
-            <Button 
+        <Button 
                 Content="Обновить" 
                 HorizontalAlignment="Left" VerticalAlignment="Top"  
                 Height="47" Width="116"
                 Command="{Binding ShowMovies}"
                 IsEnabled="{Binding IsEnabled}"
-                Margin="10,10,10,10"/>
-            <Button 
+                Margin="420,517,0,0"/>
+        <Button 
                 Content="Добавить фильм" 
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="341,10,0,0"
+                Margin="687,517,0,0"
                 Width="118" Height="47"
                 Command="{Binding AddMovie}"
                 IsEnabled="{Binding IsEnabled}"/>
-            <Button 
+        <Button 
                 Content="Удалить фильм" 
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="181,10,0,0"
+                Margin="554,517,0,0"
                 Width="118" Height="47"
                 Command="{Binding RemoveMovie}"
-                IsEnabled="{Binding IsEnabled}"/>
-        </Grid>
+                IsEnabled="{Binding IsEnabled}">
+            <!--<i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction 
+                        Command="{Binding ShowMovieInfo}"
+                        CommandParameter= "{Binding ElementName=Movies}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>-->
+        </Button>
     </Grid>
 </Page>

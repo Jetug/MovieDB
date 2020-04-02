@@ -6,19 +6,53 @@
         xmlns:vm="clr-namespace:MovieDB.ViewModel"
         xmlns:local="clr-namespace:MovieDB"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1000">
+        Title="MainWindow" Height="650" Width="1025">
     <Window.DataContext>
         <vm:MainViewModel>
 
         </vm:MainViewModel>
     </Window.DataContext>
     <Grid>
-
         <Frame 
-            Content="{Binding MainContent}" 
+            Content="{Binding FrameContent}" 
             HorizontalAlignment="Left" 
             Height="600" Width="850"
-            Margin="134,10,0,0" 
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top" Margin="158,10,0,0"/>
+        <Button Content="Фильмы" 
+                Command="{Binding ShowMovies}"
+                IsEnabled="{Binding IsEnabled}"
+                HorizontalAlignment="Left"
+                Margin="12,26,0,0" 
+                VerticalAlignment="Top" 
+                Width="135" Height="74"/>
+        <Button Content="Актёры" 
+                Command="{Binding ShowActors}"
+                IsEnabled="{Binding IsEnabled}"
+                HorizontalAlignment="Left" 
+                Margin="12,122,0,0"
+                VerticalAlignment="Top" 
+                Width="135" Height="74"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="45,276,0,0" VerticalAlignment="Top" Width="102" Height="48" Click="Button_Click"/>
+
+        <!--<TabControl TabStripPlacement="Left">
+            <TabItem Name="fontweight" Header="Фильмы" 
+                     Width="150" Height="75" FontSize="16">
+                  
+            </TabItem>
+
+            <TabItem Name="fontsize" Header="Актёты" 
+                     Width="150" Height="75" FontSize="16">
+                <TabItem.Content>
+                    <TextBlock TextWrapping="WrapWithOverflow">
+                        <Frame 
+                            Content="{Binding ActorFrameContent}" 
+                            HorizontalAlignment="Left" 
+                            Height="600" Width="850"
+                            VerticalAlignment="Top"/>
+                    </TextBlock>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>-->
+
     </Grid>
 </Window>

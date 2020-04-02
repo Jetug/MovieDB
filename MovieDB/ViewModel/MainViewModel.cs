@@ -18,24 +18,42 @@ namespace MovieDB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        private Page mainContent;
-        public Page MainContent
+        public MainViewModel()
         {
-            get => mainContent;
+            moviesListVM.ChangePage += (page) => FrameContent = page;
+            actorsListVM.ChangePage += (page) => FrameContent = page;
+
+            FrameContent = moviesListVM.View;
+        }
+
+        MoviesListVM moviesListVM = new MoviesListVM();
+        ActorsListVM actorsListVM = new ActorsListVM();
+
+        private Page frameContent;
+        public Page FrameContent
+        {
+            get => frameContent;
             set
             {
-                mainContent = value;
+                frameContent = value;
                 OnProperteyChanged();
             }
         }
 
-        public MainViewModel()
+        public ICommand ShowMovies
         {
-            //MoviesLi stPage moviesListPage = new MoviesListPage();
-           
-            MoviesListVM moviesListVM = new MoviesListVM();
-            moviesListVM.ChangePage += (page) => MainContent = page;
-            MainContent = moviesListVM.View;
+            get => new DelegateCommand((obj) =>
+            {
+                FrameContent = moviesListVM.View;
+            });
+        }
+
+        public ICommand ShowActors
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                FrameContent = actorsListVM.View;
+            });
         }
     }
 }
