@@ -79,6 +79,7 @@ namespace MovieDB.ViewModel
 
                 int i = ((ListBox)obj).SelectedIndex;
 
+                moviePageVM.ChangePage = ChangePage;
                 moviePageVM.Movie = MoviesList[i];
                 moviePageVM.AdminMode = true;
                 ChangePage(moviePageVM.View);

@@ -94,10 +94,14 @@
       <DependentUpon>MovieDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Tables\Actor.cs" />
+    <Compile Include="ViewModel\ActorAddingVM.cs" />
     <Compile Include="ViewModel\ActorPageVM.cs" />
     <Compile Include="ViewModel\ActorsListVM.cs" />
     <Compile Include="ViewModel\MoviePageVM.cs" />
     <Compile Include="ViewModel\MoviesListVM.cs" />
+    <Compile Include="View\ActorAdding.xaml.cs">
+      <DependentUpon>ActorAdding.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ActorPage.xaml.cs">
       <DependentUpon>ActorPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +114,10 @@
     <Compile Include="View\MoviesListPage.xaml.cs">
       <DependentUpon>MoviesListPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ActorAdding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ActorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

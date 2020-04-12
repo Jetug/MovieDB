@@ -53,7 +53,7 @@
         <Label 
             Content="Сюжет"
             HorizontalAlignment="Left" 
-            Margin="284,330,0,0" 
+            Margin="284,335,0,0" 
             VerticalAlignment="Top"
             Width="80" Height="25"/>
         <TextBox 
@@ -62,7 +62,7 @@
             IsReadOnly="{Binding ReadOnly}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="398,330,0,0"
+            Margin="398,335,0,0"
             Height="123" Width="358">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
@@ -78,21 +78,21 @@
             Command="{Binding AddMovie}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="276,494,0,0" 
+            Margin="315,510,0,0" 
             Width="103" Height="50"/>
         <Button 
             Content="Сохранить" 
             Command="{Binding EditMovie}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="398,493,0,0" 
+            Margin="437,509,0,0" 
             Width="103" Height="50"/>
         <Button 
             Content="Редактировать" 
             Command="{Binding Edit}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="528,494,0,0" 
+            Margin="567,510,0,0" 
             Width="111" Height="50"/>
         <Button 
             Content="Выбрать обложку" 
@@ -106,7 +106,7 @@
             Command="{Binding RemoveMovie}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="661,494,0,0" 
+            Margin="700,510,0,0" 
             Width="103" Height="50"/>
         <Label 
             Content="Режиссёр" 
@@ -160,14 +160,15 @@
             Margin="284,165,0,0"
             Width="80" Height="28"/>
         <ListBox
-            ItemsSource="{Binding Movie.Actors}"
+            ItemsSource="{Binding Actors}"
+            SelectedItem="{Binding SelectedActor}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="398,200,0,0" 
-            Height="102" Width="358">
+            Height="110" Width="358">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Height="100" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
+                    <StackPanel Height="22" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Margin="0,0,5,0"/>
                         <TextBlock Text="{Binding Surname}"/>
                     </StackPanel>
                 </DataTemplate>
@@ -176,10 +177,19 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction 
-                        Command="{Binding ShowMovieInfo}"
+                        Command="{Binding ShowActorInfo}"
                         CommandParameter= "{Binding ElementName=Movies}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
+        <Button
+            Content="+" 
+            Command="{Binding AddActor}"
+            HorizontalAlignment="Left" 
+            Margin="769,270,0,0" 
+            VerticalAlignment="Top"
+            Width="40" Height="40"
+            FontSize="20" FontWeight="Bold" 
+            HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

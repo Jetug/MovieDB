@@ -50,6 +50,7 @@ namespace MovieDB.ViewModel
             Year = Actor.Birth_Date.Year;
         }
 
+        public Action<Page> ChangePage;
         private EntityModel model = new EntityModel();
         public Page View { get; private set; }
 
@@ -123,6 +124,7 @@ namespace MovieDB.ViewModel
             }
         }
 
+        #region Дата рождения
         private List<int> days = new List<int>();
         public List<int> Days
         {
@@ -155,7 +157,6 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
-
         
         private int day;
         public int Day
@@ -194,6 +195,19 @@ namespace MovieDB.ViewModel
         }
         #endregion
 
+        private Actor selectedMovie;
+        public Actor SelectedMovie
+        {
+            get => selectedMovie;
+            set
+            {
+                selectedMovie = value;
+                OnProperteyChanged();
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         public ICommand EditPhoto
@@ -228,6 +242,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
+                Actor.Name = "1";
                 Actor.Birth_Date = new DateTime(Year, Month, Day);
                 model.RecordActor(Actor);
             });
@@ -238,7 +253,7 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 Actor.Birth_Date = new DateTime(Year, Month, Day);
-                model.RecordActor(Actor);
+                model.UpdateActor(Actor);
             });
         }
 
@@ -247,6 +262,19 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 model.RemoveActor(Actor);
+            });
+        }
+
+        
+        public ICommand ShowActorInfo
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                //ActorPageVM actorPageVM = new ActorPageVM();
+
+                //actorPageVM.Actor = SelectedMovie;
+                //actorPageVM.AdminMode = true;
+                //ChangePage(actorPageVM.View);
             });
         }
         #endregion

@@ -49,7 +49,7 @@ namespace MovieDB.ViewModel
         }
 
         public Page View { get; private set; }
-        private MainModel model = new MainModel();
+        private EntityModel model = new EntityModel();
 
         private List<Actor> actorsList = new List<Actor>();
         public List<Actor> ActorsList
@@ -80,10 +80,10 @@ namespace MovieDB.ViewModel
 
                 actorPageVM.Actor = ActorsList[i];
                 actorPageVM.AdminMode = true;
+                actorPageVM.ChangePage = ChangePage;
                 ChangePage(actorPageVM.View);
             });
         }
-
 
         public ICommand AddActor
         {

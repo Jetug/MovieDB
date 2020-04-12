@@ -11,11 +11,22 @@ namespace MovieDB.Tables
         public byte[] Cover { get; set; } = null;
         public int Duration { get; set; } = 0;
         public int Year { get; set; } = 0;
-        public ICollection<Actor> Actors { get; set; }
+        public ICollection<Actor> Actors { get; set; } = new List<Actor>();
 
         public Movie()
         {
-            Actors = new List<Actor>();
+            //Actors = new List<Actor>();
+        }
+
+        public override bool Equals(object obj)
+        {
+            Movie movie = (Movie)obj;
+            return Id == movie.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

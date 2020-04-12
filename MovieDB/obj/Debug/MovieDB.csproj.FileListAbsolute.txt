@@ -31,3 +31,5 @@ C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.SqlServer.dll
 C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.xml
 C:\Projects\C#\MovieDB\MovieDB\bin\Debug\EntityFramework.SqlServer.xml
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB_Content.g.cs
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorAdding.g.cs
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\ActorAdding.baml

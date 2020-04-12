@@ -18,11 +18,11 @@ namespace MovieDB
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var rep = new MovieDBRepository();
-            foreach (var actor in rep.GetActors())
-            {
-                MessageBox.Show($"{actor.Name}; {actor.Movies.Count}");
-            }
+            //var rep = new MovieDBRepository();
+            //foreach (var actor in rep.GetActors())
+            //{
+            //    MessageBox.Show($"{actor.Name}; {actor.Movies.Count}");
+            //}
         }
     }
 }

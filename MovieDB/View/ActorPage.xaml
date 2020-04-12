@@ -149,8 +149,24 @@
             VerticalAlignment="Top" 
             Width="95"/>
         <ListBox 
+            ItemsSource="{Binding Actor.Movies}"
+            SelectedItem="{Binding SelectedMovie}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
             Margin="402,164,0,0"
-            Height="292" Width="362"/>
+            Height="292" Width="362">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowActorInfo}"
+                        CommandParameter= "{Binding ElementName=Movies}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
     </Grid>
 </Page>

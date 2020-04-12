@@ -26,7 +26,7 @@ namespace MovieDB.Model
         /// </summary>
         public void GetMoviesList()
         {
-            BtnNotEnabled();
+            BtnNotEnabled?.Invoke();
             Thread thread = new Thread(GetMoviesFromDB);
             thread.Start();
 
@@ -38,16 +38,42 @@ namespace MovieDB.Model
         /// </summary>
         public void GetActorsList()
         {
-            BtnNotEnabled();
+            BtnNotEnabled?.Invoke();
             Thread thread = new Thread(GetActorsFromDB);
             thread.Start();
 
             //GetActorsFromDB();
         }
 
+        //private void FillMovieWithActors(ref Movie movie)
+        //{
+        //    using (MovieDBContext db = new MovieDBContext())
+        //    {
+        //        List<Actor> actors = new List<Actor>(movie.Actors);
+        //        movie.Actors.Clear();
+
+        //        foreach (var a in actors)
+        //        {
+        //            movie.Actors.Add(db.Actors.Find(a.Id));
+        //        }
+        //    }
+        //}
+
+
+        public void AddActorsToMovie(ref Movie movie, List<Actor> actors)
+        {
+            //using (MovieDBContext db = new MovieDBContext())
+            //{
+            //    foreach (var a in actors)
+            //    {
+            //        movie.Actors.Add(db.Actors.Find(a.Id));
+            //    }
+            //}
+        }
+
         public void RecordMovie(Movie movie)
         {
-            using (MovieContext db = new MovieContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 db.Movies.Add(movie);
                 db.SaveChanges();
@@ -56,7 +82,7 @@ namespace MovieDB.Model
 
         public void RecordActor(Actor actor)
         {
-            using (ActorContext db = new ActorContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 db.Actors.Add(actor);
                 db.SaveChanges();
@@ -65,7 +91,7 @@ namespace MovieDB.Model
 
         public void UpdateMovie(Movie movie)
         {
-            using (MovieContext db = new MovieContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 var updMovie = db.Movies
                 .Where(c => c.Id == movie.Id)
@@ -76,6 +102,7 @@ namespace MovieDB.Model
                 updMovie.Cover = movie.Cover;
                 updMovie.Duration = movie.Duration;
                 updMovie.Year = movie.Year;
+                updMovie.Actors = movie.Actors;
 
                 db.SaveChanges();
             }
@@ -83,7 +110,7 @@ namespace MovieDB.Model
 
         public void UpdateActor(Actor actor)
         {
-            using (ActorContext db = new ActorContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 var updActor = db.Actors
                 .Where(c => c.Id == actor.Id)
@@ -95,6 +122,7 @@ namespace MovieDB.Model
                 updActor.Patronymic = actor.Patronymic;
                 updActor.Country = actor.Country;
                 updActor.Birth_Date = actor.Birth_Date;
+                updActor.Movies = actor.Movies;
 
                 db.SaveChanges();
             }
@@ -102,7 +130,7 @@ namespace MovieDB.Model
 
         public void RemoveMovie(Movie movie)
         {
-            using (MovieContext db = new MovieContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 Movie delMovie = db.Movies
                .Where(m => m.Id == movie.Id)
@@ -115,7 +143,7 @@ namespace MovieDB.Model
 
         public void RemoveActor(Actor actor)
         {
-            using (ActorContext db = new ActorContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
                 Actor delActor = db.Actors
                .Where(a => a.Id == actor.Id)
@@ -126,64 +154,49 @@ namespace MovieDB.Model
             }
         }
 
-        private byte[] BitmapToByte(BitmapImage bitmapImage)
-        {
-            byte[] data;
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-            using (MemoryStream ms = new MemoryStream())
-            {
-                encoder.Save(ms);
-                data = ms.ToArray();
-            }
-            return data;
-        }
-
-        private BitmapImage ByteToBitmap(byte[] bytes)
-        {
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.StreamSource = new MemoryStream(bytes);
-            bitmap.EndInit();
-
-            return bitmap;
-        }
-
-        private byte[] PathToByte(string iFile)
-        {
-            FileInfo fInfo = new FileInfo(iFile);
-            long numBytes = fInfo.Length;
-            FileStream fStream = new FileStream(iFile, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fStream);
-            return br.ReadBytes((int)numBytes);
-        }
-
         private void GetMoviesFromDB()
         {
-            using (MovieContext db = new MovieContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
-                List<Movie> movies = new List<Movie>();
-                foreach (Movie m in db.Movies)
-                {
-                    movies.Add(m);
-                }
-                ShowMovies(movies);
+                ShowMovies(db.Movies.Include("Actors").ToList());
             }
-            BtnEnabled();
+            BtnEnabled?.Invoke();
         }
 
         private void GetActorsFromDB()
         {
-            using (ActorContext db = new ActorContext())
+            using (MovieDBContext db = new MovieDBContext())
             {
-                List<Actor> actors = new List<Actor>();
-                foreach (Actor a in db.Actors)
-                {
-                    actors.Add(a);
-                }
-                ShowActors(actors);
+                List<Actor> bufActors = db.Actors.Include("Movies").ToList();
+                ShowActors(bufActors);
             }
-            BtnEnabled();
+            BtnEnabled?.Invoke();
         }
+
+        public List<Actor> SearchActor(string searchString, IEnumerable<Actor> actors)
+        {
+            List<Actor> searchedActors = new List<Actor>();
+
+            string name = searchString;
+            string surname = "";
+
+            foreach (char c in searchString)
+            {
+
+            }
+
+            searchedActors = actors.Where( (a) => 
+            {
+                if (a.Name == name || a.Surname == name)
+                    return true;
+                else
+                    return false;
+
+            }).ToList();
+
+            return searchedActors;
+        }
+
+
     }
 }

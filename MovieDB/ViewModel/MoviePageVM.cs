@@ -3,8 +3,11 @@ using MovieDB.Model;
 using MovieDB.Tables;
 using MovieDB.View;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,11 +31,25 @@ namespace MovieDB.ViewModel
             moviePage.DataContext = this;
             View = moviePage;
         }
-
+        public Action<Page> ChangePage;
         private EntityModel model = new EntityModel();
-        public Page View { get; private set; }
 
         #region Свойства
+
+        public Page View { get; private set; }
+
+        private Movie movie = new Movie();
+        public Movie Movie
+        {
+            get => movie;
+            set
+            {
+                movie = value;
+                Actors = new ObservableCollection<Actor>(Movie.Actors);
+                OnProperteyChanged();
+            }
+        }
+
         private bool adminMode = false;
         public bool AdminMode
         {
@@ -88,13 +105,24 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private Movie movie = new Movie();
-        public Movie Movie
+        private ObservableCollection<Actor> actors;
+        public ObservableCollection<Actor> Actors
         {
-            get => movie;
+            get => actors;
             set
             {
-                movie = value;
+                actors = value;
+                OnProperteyChanged();
+            }
+        }
+
+        private Actor selectedActor;
+        public Actor SelectedActor
+        {
+            get => selectedActor;
+            set
+            {
+                selectedActor = value;
                 OnProperteyChanged();
             }
         }
@@ -202,7 +230,34 @@ namespace MovieDB.ViewModel
             {
                 model.RemoveMovie(Movie);
             });
+        }
 
+        public ICommand AddActor
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                ActorAddingVM actorAddingVM = new ActorAddingVM(new ObservableCollection<Actor>(Movie.Actors));
+                actorAddingVM.SaveChanges = (actors) => 
+                {
+                    Movie m = Movie;
+                    model.AddActorsToMovie(ref m, Movie.Actors.ToList());
+                    Movie = m;
+                    Actors = new ObservableCollection<Actor>(actors); 
+                };
+                actorAddingVM.ShowDialog();
+            });
+        }
+
+        public ICommand ShowActorInfo
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                ActorPageVM actorPageVM = new ActorPageVM();
+
+                actorPageVM.Actor = SelectedActor;
+                actorPageVM.AdminMode = true;
+                ChangePage(actorPageVM.View);
+            });
         }
         #endregion
     }

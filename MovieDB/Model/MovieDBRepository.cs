@@ -9,6 +9,12 @@ namespace MovieDB.Model
 {
     class MovieDBRepository
     {
+        public IEnumerable<Movie> GetMovies()
+        {
+            var context = new MovieDBContext();
+            return context.Movies.Include("Actors").ToList();
+        }
+
         public IEnumerable<Actor> GetActors()
         {
             var context = new MovieDBContext();
