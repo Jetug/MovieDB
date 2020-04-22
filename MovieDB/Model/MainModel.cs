@@ -12,12 +12,6 @@ using System.Windows.Media.Imaging;
 
 namespace MovieDB.Model
 {
-    public enum RecordMode
-    {
-        Adding,
-        Update
-    }
-
     class MainModel
     {
         public Action<List<Movie>> ShowMovies;

@@ -1,12 +1,12 @@
-﻿<Window x:Class="MovieDB.View.ActorAdding"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:local="clr-namespace:MovieDB.View"
-        mc:Ignorable="d"
-        Title="Добавление актёра" Height="430" Width="615">
+﻿<Window x:Class="MovieDB.View.MovieAdding"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MovieDB.View"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      mc:Ignorable="d" 
+      Title="Добавление фильма" Height="430" Width="615">
     <Grid>
         <TextBox
             Text="{Binding SearchString}"
@@ -16,22 +16,21 @@
             Width="199" Height="23"/>
         <Button 
             Content="Поиск"
-            Command="{Binding SearchActors}"
+            Command="{Binding SearchMovies}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="500,19,0,0"
             Width="75" Height="23"/>
 
         <ListBox 
-            ItemsSource="{Binding AddedActors}"
-            SelectedItem="{Binding SelectedActor1}"
+            ItemsSource="{Binding AddedMovies}"
+            SelectedItem="{Binding SelectedMovie1}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="23,61,0,0"
             Height="237"  Width="224">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Height="22" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Surname}"/>
+                        <TextBlock Text="{Binding Title}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -39,33 +38,30 @@
 
         <ListBox 
             x:Name="ActorsListBox"
-            ItemsSource="{Binding AllActors}"
-            SelectedItem="{Binding SelectedActor2}"
+            ItemsSource="{Binding AllMovies}"
+            SelectedItem="{Binding SelectedMovie2}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="284,61,0,0"
             Height="237"  Width="301">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Height="22" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding Surname}"/>
+                        <TextBlock Text="{Binding Title}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <Button 
             Content="Добавить"
-            Command="{Binding AddActor}"
+            Command="{Binding AddMovie}"
             IsEnabled="{Binding AddBtnEnabled}"
             HorizontalAlignment="Left"
             Margin="485,312,0,0" 
             VerticalAlignment="Top"
-            Width="100" Height="26">
-
-        </Button>
+            Width="100" Height="26"/>
         <Button 
             Content="Удалить"
-            Command="{Binding RemoveActor}"
+            Command="{Binding RemoveMovie}"
             IsEnabled="{Binding RemoveBtnEnabled}"
             HorizontalAlignment="Left"
             Margin="147,312,0,0" 

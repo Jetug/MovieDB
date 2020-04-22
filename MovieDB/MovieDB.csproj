@@ -73,11 +73,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\ActorContext.cs" />
+    <Compile Include="Model\AccountContext.cs" />
+    <Compile Include="Model\AuthorizationModel.cs" />
     <Compile Include="Model\EntityModel.cs" />
-    <Compile Include="Model\MovieContext.cs" />
+    <Compile Include="Model\GlobalVars.cs" />
+    <Compile Include="Model\Modes.cs" />
     <Compile Include="Model\MovieDBContext.cs" />
-    <Compile Include="Model\MovieDBRepository.cs" />
     <Compile Include="MovieDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,10 +94,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Tables\Account.cs" />
     <Compile Include="Tables\Actor.cs" />
+    <Compile Include="Tables\Director.cs" />
+    <Compile Include="Tables\IPerson.cs" />
     <Compile Include="ViewModel\ActorAddingVM.cs" />
     <Compile Include="ViewModel\ActorPageVM.cs" />
     <Compile Include="ViewModel\ActorsListVM.cs" />
+    <Compile Include="ViewModel\AuthorizationWindowVM.cs" />
+    <Compile Include="ViewModel\MovieAddingVM.cs" />
     <Compile Include="ViewModel\MoviePageVM.cs" />
     <Compile Include="ViewModel\MoviesListVM.cs" />
     <Compile Include="View\ActorAdding.xaml.cs">
@@ -107,6 +113,12 @@
     </Compile>
     <Compile Include="View\ActorsListPage.xaml.cs">
       <DependentUpon>ActorsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieAdding.xaml.cs">
+      <DependentUpon>MovieAdding.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
@@ -126,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AuthorizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -142,6 +158,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\MovieAdding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MoviePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -74,22 +74,6 @@
             VerticalAlignment="Top" HorizontalAlignment="Left" 
             Margin="492,83,0,0" 
             Width="60" Height="25"/>
-        <!--<TextBox
-            x:Name="BirthDate"
-            Text="{Binding Actor.BirthDate}" 
-            IsReadOnly="{Binding ReadOnly}"
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,82,0,0"
-            Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding BirthDateChanged}"
-                        CommandParameter= "{Binding ElementName=BirthDate}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>-->
-
         <Button 
             Content="Добавить" 
             Command="{Binding AddActor}"
@@ -129,7 +113,7 @@
             Content="Место рождения" HorizontalAlignment="Left" Margin="284,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="113" Height="25"/>
         <TextBox
             x:Name="country"
-            Text="{Binding Actor.country}" 
+            Text="{Binding Actor.Сountry}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="402,121,0,0"
@@ -149,7 +133,7 @@
             VerticalAlignment="Top" 
             Width="95"/>
         <ListBox 
-            ItemsSource="{Binding Actor.Movies}"
+            ItemsSource="{Binding Movies}"
             SelectedItem="{Binding SelectedMovie}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
             Margin="402,164,0,0"
@@ -163,10 +147,18 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction 
-                        Command="{Binding ShowActorInfo}"
-                        CommandParameter= "{Binding ElementName=Movies}"/>
+                        Command="{Binding ShowMovieInfo}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
+        <Button
+            Content="+" 
+            Command="{Binding AddMovie}"
+            HorizontalAlignment="Left" 
+            Margin="775,416,0,0" 
+            VerticalAlignment="Top"
+            Width="40" Height="40"
+            FontSize="20" FontWeight="Bold" 
+            HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

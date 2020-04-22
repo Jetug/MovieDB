@@ -9,15 +9,12 @@
       d:DesignHeight="580" d:DesignWidth="830"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       Title="Фильмы">
-    <!--<Page.DataContext>
-        <vm:MoviesListVM/>
-    </Page.DataContext>-->
 
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ShowMovies}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
 
     <Grid>
         <ListBox
@@ -44,26 +41,26 @@
             </i:Interaction.Triggers>
         </ListBox>
         <Button 
-                Content="Обновить" 
-                HorizontalAlignment="Left" VerticalAlignment="Top"  
-                Height="47" Width="116"
-                Command="{Binding ShowMovies}"
-                IsEnabled="{Binding IsEnabled}"
-                Margin="420,517,0,0"/>
+            Content="Обновить"
+            Command="{Binding ShowMovies}"
+            IsEnabled="{Binding IsEnabled}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"  
+            Height="47" Width="116"
+            Margin="420,517,0,0"/>
         <Button 
-                Content="Добавить фильм" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="687,517,0,0"
-                Width="118" Height="47"
-                Command="{Binding AddMovie}"
-                IsEnabled="{Binding IsEnabled}"/>
+            Content="Добавить фильм" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="687,517,0,0"
+            Width="118" Height="47"
+            Command="{Binding AddMovie}"
+            IsEnabled="{Binding IsEnabled}"/>
         <Button 
-                Content="Удалить фильм" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="554,517,0,0"
-                Width="118" Height="47"
-                Command="{Binding RemoveMovie}"
-                IsEnabled="{Binding IsEnabled}">
+            Content="Удалить фильм" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="554,517,0,0"
+            Width="118" Height="47"
+            Command="{Binding RemoveMovie}"
+            IsEnabled="{Binding IsEnabled}">
             <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction 

@@ -30,6 +30,8 @@ namespace MovieDB.ViewModel
             MoviePage moviePage = new MoviePage();
             moviePage.DataContext = this;
             View = moviePage;
+
+            Visibility = GlobalVars.AdminMode ? Visibility.Visible : Visibility.Hidden;
         }
         public Action<Page> ChangePage;
         private EntityModel model = new EntityModel();
@@ -37,6 +39,7 @@ namespace MovieDB.ViewModel
         #region Свойства
 
         public Page View { get; private set; }
+        public RecordMode Mode { get; set; }
 
         private Movie movie = new Movie();
         public Movie Movie
@@ -46,21 +49,12 @@ namespace MovieDB.ViewModel
             {
                 movie = value;
                 Actors = new ObservableCollection<Actor>(Movie.Actors);
+                Directors = new ObservableCollection<Director>(Movie.Directors);
                 OnProperteyChanged();
             }
         }
 
-        private bool adminMode = false;
-        public bool AdminMode
-        {
-            get => adminMode;
-            set
-            {
-                adminMode = value;
-                Visibility = value ? Visibility.Visible : Visibility.Hidden;
-            }
-        }
-
+        #region UI
         private bool editMode = false;
         public bool EditMode
         {
@@ -94,7 +88,7 @@ namespace MovieDB.ViewModel
             }
         }
         
-        private Visibility visibility = Visibility.Hidden;
+        private Visibility visibility;
         public Visibility Visibility
         {
             get => visibility;
@@ -104,6 +98,7 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
+        #endregion
 
         private ObservableCollection<Actor> actors;
         public ObservableCollection<Actor> Actors
@@ -116,13 +111,35 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private Actor selectedActor;
+        private ObservableCollection<Director> directors;
+        public ObservableCollection<Director> Directors
+        {
+            get => directors;
+            set
+            {
+                directors = value;
+                OnProperteyChanged();
+            }
+        }
+
+        private Actor selectedActor = null;
         public Actor SelectedActor
         {
             get => selectedActor;
             set
             {
                 selectedActor = value;
+                OnProperteyChanged();
+            }
+        }
+
+        private Director selectedDirector = null;
+        public Director SelectedDirector
+        {
+            get => selectedDirector;
+            set
+            {
+                selectedDirector = value;
                 OnProperteyChanged();
             }
         }
@@ -170,7 +187,6 @@ namespace MovieDB.ViewModel
                 if (fileDialog.ShowDialog() == true) fileName = fileDialog.FileName;
                 if (fileName != "")
                 {
-                    //Movie.Cover = new BitmapImage(new Uri(fileName));
                     Movie.Cover = File.ReadAllBytes(fileName);
                 }
                 OnProperteyChanged("Movie");
@@ -219,8 +235,12 @@ namespace MovieDB.ViewModel
         public ICommand EditMovie
         {
             get => new DelegateCommand((obj) =>
-            {
+            { 
                 model.UpdateMovie(Movie);
+                //if (Mode = RecordMode.Adding)
+                //    model.RecordMovie(Movie);
+                //else
+                //    model.UpdateMovie(Movie);
             });
         }
 
@@ -232,33 +252,46 @@ namespace MovieDB.ViewModel
             });
         }
 
-        public ICommand AddActor
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                ActorAddingVM actorAddingVM = new ActorAddingVM(new ObservableCollection<Actor>(Movie.Actors));
-                actorAddingVM.SaveChanges = (actors) => 
-                {
-                    Movie m = Movie;
-                    model.AddActorsToMovie(ref m, Movie.Actors.ToList());
-                    Movie = m;
-                    Actors = new ObservableCollection<Actor>(actors); 
-                };
-                actorAddingVM.ShowDialog();
-            });
-        }
-
         public ICommand ShowActorInfo
         {
             get => new DelegateCommand((obj) =>
             {
-                ActorPageVM actorPageVM = new ActorPageVM();
+                ShowPerson(SelectedActor);
+            });
+        }
 
-                actorPageVM.Actor = SelectedActor;
-                actorPageVM.AdminMode = true;
-                ChangePage(actorPageVM.View);
+        public ICommand ShowDirectorInfo
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                ShowPerson(SelectedDirector);
+            });
+        }
+
+        public ICommand AddActor
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                ActorAddingVM actorAddingVM = new ActorAddingVM(new ObservableCollection<Actor>(Movie.Actors.ToList()));
+                actorAddingVM.SaveChanges = (actors) =>
+                {
+                    Actors = actors;
+                    Movie.Actors = actors.ToList();
+                };
+                actorAddingVM.ShowDialog();
             });
         }
         #endregion
+
+        private void ShowPerson(IPerson person)
+        {
+            if (person != null)
+            {
+                ActorPageVM actorPageVM = new ActorPageVM();
+
+                actorPageVM.Actor = person;
+                ChangePage(actorPageVM.View);
+            }
+        }
     }
 }

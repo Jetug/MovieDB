@@ -11,11 +11,13 @@ namespace MovieDB.Tables
         public byte[] Cover { get; set; } = null;
         public int Duration { get; set; } = 0;
         public int Year { get; set; } = 0;
-        public ICollection<Actor> Actors { get; set; } = new List<Actor>();
+        public ICollection<Actor> Actors { get; set; }// = new List<Actor>();
+        public ICollection<Director> Directors { get; set; }// = new List<Director>();
 
         public Movie()
         {
-            //Actors = new List<Actor>();
+            Actors = new HashSet<Actor>();
+            Directors = new HashSet<Director>();
         }
 
         public override bool Equals(object obj)

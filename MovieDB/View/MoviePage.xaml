@@ -7,6 +7,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="580" d:DesignWidth="830"
+      
       Title="{Binding Movie.Title}">
 
     <Grid>
@@ -33,18 +34,13 @@
         <Label 
             Content="Актёры" 
             HorizontalAlignment="Left"
-            Margin="285,200,0,0" VerticalAlignment="Top" 
+            Margin="284,242,0,0" VerticalAlignment="Top" 
             Width="80" Height="25"/>
         <Label 
             Content="Название" 
             HorizontalAlignment="Left" VerticalAlignment="Top" 
             Margin="284,25,0,0" 
             Height="25" Width="81"/>
-        <Label 
-            Content="[Actors]" 
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="398,165,0,0"
-            Height="39" Width="362"/>
         <Label 
             Content="Год" 
             HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -53,7 +49,7 @@
         <Label 
             Content="Сюжет"
             HorizontalAlignment="Left" 
-            Margin="284,335,0,0" 
+            Margin="289,372,0,0" 
             VerticalAlignment="Top"
             Width="80" Height="25"/>
         <TextBox 
@@ -62,8 +58,8 @@
             IsReadOnly="{Binding ReadOnly}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="398,335,0,0"
-            Height="123" Width="358">
+            Margin="398,372,0,0"
+            Height="110" Width="358">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction 
@@ -111,14 +107,9 @@
         <Label 
             Content="Режиссёр" 
             HorizontalAlignment="Left" 
-            Margin="284,130,0,0" 
+            Margin="284,189,0,0" 
             VerticalAlignment="Top" 
             Width="80" Height="28"/>
-        <Label 
-            Content="[Actors]" 
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="398,130,0,0"
-            Height="28" Width="362"/>
         <TextBox
             x:Name="year"
             Text="{Binding Movie.Year}" 
@@ -157,13 +148,13 @@
         <Label 
             Content="Жанры"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="284,165,0,0"
+            Margin="284,131,0,0"
             Width="80" Height="28"/>
         <ListBox
             ItemsSource="{Binding Actors}"
             SelectedItem="{Binding SelectedActor}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="398,200,0,0" 
+            Margin="398,242,0,0" 
             Height="110" Width="358">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -177,8 +168,7 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction 
-                        Command="{Binding ShowActorInfo}"
-                        CommandParameter= "{Binding ElementName=Movies}"/>
+                        Command="{Binding ShowActorInfo}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
@@ -186,7 +176,69 @@
             Content="+" 
             Command="{Binding AddActor}"
             HorizontalAlignment="Left" 
-            Margin="769,270,0,0" 
+            Margin="770,312,0,0" 
+            VerticalAlignment="Top"
+            Width="40" Height="40"
+            FontSize="20" FontWeight="Bold" 
+            HorizontalContentAlignment="Center"/>
+        <ListBox
+            x:Name="Dir"
+            ItemsSource="{Binding Directors}"
+            SelectedItem="{Binding SelectedDirector}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="398,185,0,0" 
+            Height="40" Width="358">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Surname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowDirectorInfo}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <ListBox
+            ItemsSource="{Binding Genres}"
+            SelectedItem="{Binding SelectedGenre}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="398,131,0,0" 
+            Height="40" Width="358">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="22" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Margin="0,0,5,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowGenreInfo}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        <Button
+            Content="+" 
+            Command="{Binding A}"
+            HorizontalAlignment="Left" 
+            Margin="770,185,0,0" 
+            VerticalAlignment="Top"
+            Width="40" Height="40"
+            FontSize="20" FontWeight="Bold" 
+            HorizontalContentAlignment="Center"/>
+        <Button
+            Content="+" 
+            Command="{Binding A}"
+            HorizontalAlignment="Left" 
+            Margin="770,131,0,0" 
             VerticalAlignment="Top"
             Width="40" Height="40"
             FontSize="20" FontWeight="Bold" 

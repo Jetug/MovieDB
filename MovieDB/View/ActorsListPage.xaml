@@ -9,18 +9,19 @@
       d:DesignHeight="580" d:DesignWidth="830"
       Title="Актёры">
 
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ShowActors}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
 
     <Grid>
         <ListBox
-            x:Name="Movies"
+            x:Name="Actors"
+            SelectedItem="{Binding SelectedPerson}"
+            ItemsSource="{Binding ActorsList}"
             HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Height="498" Width="830"
-            ItemsSource="{Binding ActorsList}">
+            Height="498" Width="830">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Height="100" Orientation="Horizontal">
@@ -31,7 +32,6 @@
                             <TextBlock Text="{Binding Surname}"
                                    FontSize="20" Margin="0,0,0,0"/>
                         </StackPanel>
-                        
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -39,32 +39,31 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction 
-                        Command="{Binding ShowActorInfo}"
-                        CommandParameter= "{Binding ElementName=Movies}"/>
+                        Command="{Binding ShowActorInfo}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
         <Button 
-                Content="Обновить" 
-                HorizontalAlignment="Left" VerticalAlignment="Top"  
-                Height="47" Width="116"
-                Command="{Binding ShowMovies}"
-                IsEnabled="{Binding IsEnabled}"
-                Margin="420,517,0,0"/>
+            Content="Обновить" 
+            Command="{Binding ShowActors}"
+            IsEnabled="{Binding IsEnabled}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"  
+            Height="47" Width="116"
+            Margin="420,517,0,0"/>
         <Button 
-                Content="Добавить актёра" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="687,517,0,0"
-                Width="118" Height="47"
-                Command="{Binding AddActor}"
-                IsEnabled="{Binding IsEnabled}"/>
+            Content="Добавить актёра" 
+            Command="{Binding AddActor}"
+            IsEnabled="{Binding IsEnabled}"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="687,517,0,0"
+            Width="118" Height="47"/>
         <Button 
-                Content="Удалить актёра" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="554,517,0,0"
-                Width="118" Height="47"
-                Command="{Binding RemoveMovie}"
-                IsEnabled="{Binding IsEnabled}">
+            Content="Удалить актёра" 
+            Command="{Binding RemoveActor}"
+            IsEnabled="{Binding RemoveBtnEnabled}"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="554,517,0,0"
+            Width="118" Height="47">
         </Button>
     </Grid>
 </Page>

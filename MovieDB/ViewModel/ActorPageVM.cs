@@ -4,6 +4,7 @@ using MovieDB.Tables;
 using MovieDB.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -55,17 +56,7 @@ namespace MovieDB.ViewModel
         public Page View { get; private set; }
 
         #region Свойства
-        private bool adminMode = false;
-        public bool AdminMode
-        {
-            get => adminMode;
-            set
-            {
-                adminMode = value;
-                Visibility = value ? Visibility.Visible : Visibility.Hidden;
-            }
-        }
-
+        
         private bool editMode = false;
         public bool EditMode
         {
@@ -77,6 +68,7 @@ namespace MovieDB.ViewModel
             }
         }
 
+        #region UI
         private bool readOnly = true;
         public bool ReadOnly
         {
@@ -99,7 +91,7 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private Visibility visibility = Visibility.Hidden;
+        private Visibility visibility = Visibility.Visible;
         public Visibility Visibility
         {
             get => visibility;
@@ -109,14 +101,15 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
-
-        private Actor actor = new Actor();
-        public Actor Actor
+        #endregion
+        private IPerson actor = new Actor();
+        public IPerson Actor
         {
             get => actor;
             set
             {
                 actor = value;
+                Movies = new ObservableCollection<Movie>(Actor.Movies);
                 Day = value.Birth_Date.Day;
                 Month = value.Birth_Date.Month;
                 Year = value.Birth_Date.Year;
@@ -195,8 +188,19 @@ namespace MovieDB.ViewModel
         }
         #endregion
 
-        private Actor selectedMovie;
-        public Actor SelectedMovie
+        public ObservableCollection<Movie> movies;
+        public ObservableCollection<Movie> Movies
+        {
+            get => movies;
+            set
+            {
+                movies = value;
+                OnProperteyChanged();
+            }
+        }
+
+        private Movie selectedMovie;
+        public Movie SelectedMovie
         {
             get => selectedMovie;
             set
@@ -242,7 +246,6 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                Actor.Name = "1";
                 Actor.Birth_Date = new DateTime(Year, Month, Day);
                 model.RecordActor(Actor);
             });
@@ -265,16 +268,31 @@ namespace MovieDB.ViewModel
             });
         }
 
-        
-        public ICommand ShowActorInfo
+        public ICommand ShowMovieInfo
         {
             get => new DelegateCommand((obj) =>
             {
-                //ActorPageVM actorPageVM = new ActorPageVM();
+                if (SelectedMovie != null)
+                {
+                    MoviePageVM moviePageVM = new MoviePageVM();
 
-                //actorPageVM.Actor = SelectedMovie;
-                //actorPageVM.AdminMode = true;
-                //ChangePage(actorPageVM.View);
+                    moviePageVM.Movie = SelectedMovie;
+                    ChangePage(moviePageVM.View);
+                }
+            });
+        }
+
+        public ICommand AddMovie
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                MovieAddingVM movieAddingVM = new MovieAddingVM(new ObservableCollection<Movie>(Actor.Movies));
+                movieAddingVM.SaveChanges = (movies) =>
+                {
+                    Movies = movies;
+                    Actor.Movies = movies.ToList();
+                };
+                movieAddingVM.ShowDialog();
             });
         }
         #endregion

@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace MovieDB.ViewModel
 {
-    class ActorAddingVM : INotifyPropertyChanged
+    class MovieAddingVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,24 +24,23 @@ namespace MovieDB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ActorAddingVM(ObservableCollection<Actor> act)
+        public MovieAddingVM(ObservableCollection<Movie> act)
         {
-            AddedActors = act;
-            model.ShowActors = (actors) => 
-            { 
-                AllActors = new ObservableCollection<Actor>(actors); 
-                AllActors = new ObservableCollection<Actor>(AllActors.Except(AddedActors)); 
+            AddedMovies = act;
+            model.ShowMovies = (movies) =>
+            {
+                AllMovies = new ObservableCollection<Movie>(movies);
+                AllMovies = new ObservableCollection<Movie>(AllMovies.Except(AddedMovies));
             };
-            model.GetActorsList_NoMTM();
-            actorAdding.DataContext = this;
+            model.GetMoviesList_NoMTM();
+            movieAdding.DataContext = this;
         }
 
         EntityModel model = new EntityModel();
-        public Window actorAdding = new ActorAdding();
-        public Action<ObservableCollection<Actor>> SaveChanges;
+        public Window movieAdding = new MovieAdding();
+        public Action<ObservableCollection<Movie>> SaveChanges;
 
         #region Свойства
-        //public List<Actor> NewActors { get; set; }
 
         private string searchString;
         public string SearchString
@@ -54,19 +53,19 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private ObservableCollection<Actor> addedActors = new ObservableCollection<Actor>();
-        public ObservableCollection<Actor> AddedActors 
+        private ObservableCollection<Movie> addedMovies = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> AddedMovies
         {
-            get => addedActors;
+            get => addedMovies;
             set
             {
-                addedActors = value;
+                addedMovies = value;
                 OnProperteyChanged();
             }
-        } 
+        }
 
-        private ObservableCollection<Actor> allctors = new ObservableCollection<Actor>();
-        public ObservableCollection<Actor> AllActors
+        private ObservableCollection<Movie> allctors = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> AllMovies
         {
             get => allctors;
             set
@@ -98,25 +97,25 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private object selectedActor1;
-        public object SelectedActor1
+        private object selectedMovie1;
+        public object SelectedMovie1
         {
-            get => selectedActor1;
+            get => selectedMovie1;
             set
             {
-                selectedActor1 = value;
+                selectedMovie1 = value;
                 RemoveBtnEnabled = value == null ? false : true;
                 OnProperteyChanged();
             }
         }
 
-        private object selectedActor2;
-        public object SelectedActor2
+        private object selectedMovie2;
+        public object SelectedMovie2
         {
-            get => selectedActor2;
+            get => selectedMovie2;
             set
             {
-                selectedActor2 = value;
+                selectedMovie2 = value;
                 AddBtnEnabled = value == null ? false : true;
                 OnProperteyChanged();
             }
@@ -124,34 +123,32 @@ namespace MovieDB.ViewModel
         #endregion
 
         #region Команды
-         
-        public ICommand RemoveActor
+
+        public ICommand RemoveMovie
         {
             get => new DelegateCommand((obj) =>
             {
-                Actor actor = (Actor)SelectedActor1;
-                AddedActors.Remove(actor);
-                //NewActors.Remove(actor);
-                AllActors.Add(actor);
+                Movie movie = (Movie)SelectedMovie1;
+                AddedMovies.Remove(movie);
+                AllMovies.Add(movie);
             });
         }
 
-        public ICommand AddActor
+        public ICommand AddMovie
         {
             get => new DelegateCommand((obj) =>
             {
-                Actor actor = (Actor)SelectedActor2;
-                AddedActors.Add(actor);
-                //NewActors.Add(actor);
-                AllActors.Remove(actor);
+                Movie movie = (Movie)SelectedMovie2;
+                AddedMovies.Add(movie);
+                AllMovies.Remove(movie);
             });
         }
 
-        public ICommand SearchActors
+        public ICommand SearchMovies
         {
             get => new DelegateCommand((obj) =>
             {
-                AllActors = new ObservableCollection<Actor>(model.SearchActor(searchString, AllActors));
+                //AllMovies = new ObservableCollection<Movie>(model.SearchMovie(searchString, AllMovies));
             });
         }
 
@@ -159,8 +156,8 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                SaveChanges(AddedActors);
-                actorAdding.Close();
+                SaveChanges(AddedMovies);
+                movieAdding.Close();
             });
         }
 
@@ -168,7 +165,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                actorAdding.Close();
+                movieAdding.Close();
             });
         }
 
@@ -176,7 +173,7 @@ namespace MovieDB.ViewModel
 
         public void ShowDialog()
         {
-            actorAdding.ShowDialog();
+            movieAdding.ShowDialog();
         }
     }
 }

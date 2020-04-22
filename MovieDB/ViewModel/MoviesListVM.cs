@@ -3,6 +3,7 @@ using MovieDB.Tables;
 using MovieDB.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,14 +24,9 @@ namespace MovieDB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public Action<Page> ChangePage;
-
-        public Page View { get; private set; }
-        private EntityModel model = new EntityModel();
-
         public MoviesListVM()
         {
-            model.ShowMovies = (moviesList) => MoviesList = moviesList;
+            model.ShowMovies = (moviesList) => MoviesList = new ObservableCollection<Movie>(moviesList);
             model.BtnEnabled = () => IsEnabled = true;
             model.BtnNotEnabled = () => IsEnabled = false;
 
@@ -40,6 +36,11 @@ namespace MovieDB.ViewModel
             moviesListPage.DataContext = this;
         }
 
+        public Action<Page> ChangePage; 
+        private EntityModel model = new EntityModel();
+
+        #region Свойства
+        public Page View { get; private set; }
 
         private bool isEnabled = true;
         public bool IsEnabled
@@ -52,17 +53,19 @@ namespace MovieDB.ViewModel
             }
         }
 
-        private List<Movie> movies = new List<Movie>();
-        public List<Movie> MoviesList
+        private ObservableCollection<Movie> moviesList = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> MoviesList
         {
-            get => movies;
+            get => moviesList;
             set
             {
-                movies = value;
+                moviesList = value;
                 OnProperteyChanged();
             }
         }
+        #endregion
 
+        #region Команды
         public ICommand ShowMovies
         {
             get => new DelegateCommand((obj) =>
@@ -81,7 +84,6 @@ namespace MovieDB.ViewModel
 
                 moviePageVM.ChangePage = ChangePage;
                 moviePageVM.Movie = MoviesList[i];
-                moviePageVM.AdminMode = true;
                 ChangePage(moviePageVM.View);
             });
         }
@@ -91,7 +93,6 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 MoviePageVM moviePageVM = new MoviePageVM();
-                moviePageVM.AdminMode = true;
                 moviePageVM.EditMode = true;
                 ChangePage(moviePageVM.View);
             });
@@ -104,5 +105,6 @@ namespace MovieDB.ViewModel
                 
             });
         }
+        #endregion
     }
 }

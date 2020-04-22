@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Projects\C#\MovieDB\MovieDB\App.xaml
-62068885977
+8685662019
 2-368104863
-291711389304
+37454298280
 20182885303
-View\ActorAdding.xaml;View\ActorPage.xaml;View\ActorsListPage.xaml;View\MainWindow.xaml;View\MoviePage.xaml;View\MoviesListPage.xaml;
+View\ActorAdding.xaml;View\ActorPage.xaml;View\ActorsListPage.xaml;View\AuthorizationWindow.xaml;View\MainWindow.xaml;View\MovieAdding.xaml;View\MoviePage.xaml;View\MoviesListPage.xaml;
 
 False
 

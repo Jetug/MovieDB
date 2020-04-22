@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using MovieDB.Model;
 using MovieDB.Tables;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace MovieDB.ViewModel
 {
@@ -24,7 +25,7 @@ namespace MovieDB.ViewModel
 
         public ActorsListVM()
         {
-            model.ShowActors = (actorsList) => ActorsList = actorsList;
+            model.ShowActors = (actorsList) => ActorsList = new ObservableCollection<IPerson>(actorsList);
             model.BtnEnabled = () => IsEnabled = true;
             model.BtnNotEnabled = () => IsEnabled = false;
 
@@ -34,8 +35,14 @@ namespace MovieDB.ViewModel
             actorsListPage.DataContext = this;
         }
 
-        public bool AdminMode { get; set; }
         public Action<Page> ChangePage;
+
+        private EntityModel model = new EntityModel();
+
+        #region Свойства
+        public Page View { get; private set; }
+
+        public bool AdminMode { get; set; }
 
         private bool isEnabled = true;
         public bool IsEnabled
@@ -44,15 +51,24 @@ namespace MovieDB.ViewModel
             set
             {
                 isEnabled = value;
+                RemoveBtnEnabled = value;
                 OnProperteyChanged();
             }
         }
 
-        public Page View { get; private set; }
-        private EntityModel model = new EntityModel();
+        private bool removeBtnEnabled = true;
+        public bool RemoveBtnEnabled
+        {
+            get => removeBtnEnabled;
+            set
+            {
+                removeBtnEnabled = value;
+                OnProperteyChanged();
+            }
+        }
 
-        private List<Actor> actorsList = new List<Actor>();
-        public List<Actor> ActorsList
+        private ObservableCollection<IPerson> actorsList = new ObservableCollection<IPerson>();
+        public ObservableCollection<IPerson> ActorsList
         {
             get => actorsList;
             set
@@ -61,6 +77,19 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
+
+        private IPerson selectedPerson;
+        public IPerson SelectedPerson
+        {
+            get => selectedPerson;
+            set
+            {
+                selectedPerson = value;
+                RemoveBtnEnabled = value != null;
+                OnProperteyChanged();
+            }
+        }
+        #endregion
 
         public ICommand ShowActors
         {
@@ -75,11 +104,7 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 ActorPageVM actorPageVM = new ActorPageVM();
-
-                int i = ((ListBox)obj).SelectedIndex;
-
-                actorPageVM.Actor = ActorsList[i];
-                actorPageVM.AdminMode = true;
+                actorPageVM.Actor = SelectedPerson;
                 actorPageVM.ChangePage = ChangePage;
                 ChangePage(actorPageVM.View);
             });
@@ -90,9 +115,17 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 ActorPageVM moviePageVM = new ActorPageVM();
-                moviePageVM.AdminMode = true;
                 moviePageVM.EditMode = true;
                 ChangePage(moviePageVM.View);
+            });
+        }
+        
+        public ICommand RemoveActor
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                model.RemoveActor(SelectedPerson);
+                model.GetActorsList();
             });
         }
     }
