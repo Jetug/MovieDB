@@ -17,19 +17,12 @@
             Margin="22,25,0,0" 
             VerticalAlignment="Top" Width="234"/>
         <TextBox
-            x:Name="title"
+            Name="title"
             Text="{Binding Movie.Title}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="398,25,0,0"
             Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding TitleChanged}"
-                        CommandParameter= "{Binding ElementName=title}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
         <Label 
             Content="Актёры" 
@@ -53,42 +46,27 @@
             VerticalAlignment="Top"
             Width="80" Height="25"/>
         <TextBox 
-            x:Name="description"
+            Name="description"
             Text="{Binding Movie.Description}" 
             IsReadOnly="{Binding ReadOnly}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="398,372,0,0"
             Height="110" Width="358">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding DescriptionChanged}"
-                        CommandParameter= "{Binding ElementName=description}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
-
-        <Button 
-            Content="Добавить" 
-            Command="{Binding AddMovie}"
-            Visibility="{Binding Visibility}"
-            HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="315,510,0,0" 
-            Width="103" Height="50"/>
         <Button 
             Content="Сохранить" 
             Command="{Binding EditMovie}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="437,509,0,0" 
+            Margin="398,508,0,0" 
             Width="103" Height="50"/>
         <Button 
             Content="Редактировать" 
             Command="{Binding Edit}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="567,510,0,0" 
+            Margin="524,508,0,0" 
             Width="111" Height="50"/>
         <Button 
             Content="Выбрать обложку" 
@@ -102,7 +80,7 @@
             Command="{Binding RemoveMovie}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="700,510,0,0" 
+            Margin="657,508,0,0" 
             Width="103" Height="50"/>
         <Label 
             Content="Режиссёр" 
@@ -111,19 +89,12 @@
             VerticalAlignment="Top" 
             Width="80" Height="28"/>
         <TextBox
-            x:Name="year"
+            Name="year"
             Text="{Binding Movie.Year}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="398,60,0,0"
             Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding YearChanged}"
-                        CommandParameter= "{Binding ElementName=year}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
         <Label 
             Content="Хронометраж" 
@@ -131,19 +102,12 @@
             Margin="284,95,0,0" 
             Width="113" Height="25"/>
         <TextBox
-            x:Name="duration"
+            Name="duration"
             Text="{Binding Movie.Duration}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="398,95,0,0"
             Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding DurationChanged}"
-                        CommandParameter= "{Binding ElementName=duration}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
         <Label 
             Content="Жанры"
@@ -182,7 +146,7 @@
             FontSize="20" FontWeight="Bold" 
             HorizontalContentAlignment="Center"/>
         <ListBox
-            x:Name="Dir"
+            Name="Dir"
             ItemsSource="{Binding Directors}"
             SelectedItem="{Binding SelectedDirector}"
             HorizontalAlignment="Left" VerticalAlignment="Top"

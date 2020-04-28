@@ -70,6 +70,72 @@ namespace MovieDB.Model
             thread.Start();
         }
 
+        public void AddOrUpdate(object entity)
+        {
+            using (MovieDBContext db = new MovieDBContext())
+            {
+                object obj = null;
+                
+                switch (entity)
+                {
+                    case Movie m:
+                        obj = db.Movies.Find(m.Id);
+                        break;
+                    case Actor a:
+                        obj = db.Actors.Find(a.Id);
+                        break;
+                    case Director d:
+                        obj = db.Directors.Find(d.Id);
+                        break;
+                }
+
+                if (obj == null)
+                    RecordEntity(entity);
+                else
+                    UpdateEntity(entity);
+            }
+        }
+
+
+        public void RecordEntity(object entity)
+        {
+            switch (entity)
+            {
+                case Movie m:
+                    RecordMovie(m);
+                    break;
+                case IPerson a:
+                    RecordPerson(a);
+                    break;
+            }
+        }
+
+        public void UpdateEntity(object entity)
+        {
+            switch (entity)
+            {
+                case Movie m:
+                    UpdateMovie(m);
+                    break;
+                case IPerson a:
+                    UpdatePerson(a);
+                    break;
+            }
+        }
+
+        public void RemoveEntity(object entity)
+        {
+            switch (entity)
+            {
+                case Movie m:
+                    RemoveMovie(m);
+                    break;
+                case IPerson a:
+                    RemovePerson(a);
+                    break;
+            }
+        }
+
         public void RecordMovie(Movie movie)
         {
             using (MovieDBContext db = new MovieDBContext())
@@ -80,7 +146,7 @@ namespace MovieDB.Model
             }
         }
 
-        public void RecordActor(IPerson person)
+        public void RecordPerson(IPerson person)
         {
             using (MovieDBContext db = new MovieDBContext())
             {
@@ -128,7 +194,7 @@ namespace MovieDB.Model
             }
         }
 
-        public void UpdateActor(IPerson person)
+        public void UpdatePerson(IPerson person)
         {
             using (MovieDBContext db = new MovieDBContext())
             {
@@ -189,7 +255,7 @@ namespace MovieDB.Model
             }
         }
 
-        public void RemoveActor(IPerson person)
+        public void RemovePerson(IPerson person)
         {
             using (MovieDBContext db = new MovieDBContext())
             {

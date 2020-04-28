@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace MovieDB.ViewModel
 {
-    class ActorsListVM : INotifyPropertyChanged
+    class PersonListVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,7 +23,7 @@ namespace MovieDB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ActorsListVM()
+        public PersonListVM()
         {
             model.ShowActors = (actorsList) => ActorsList = new ObservableCollection<IPerson>(actorsList);
             model.BtnEnabled = () => IsEnabled = true;
@@ -103,7 +103,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                ActorPageVM actorPageVM = new ActorPageVM();
+                PersonPageVM actorPageVM = new PersonPageVM();
                 actorPageVM.Actor = SelectedPerson;
                 actorPageVM.ChangePage = ChangePage;
                 ChangePage(actorPageVM.View);
@@ -114,7 +114,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                ActorPageVM moviePageVM = new ActorPageVM();
+                PersonPageVM moviePageVM = new PersonPageVM();
                 moviePageVM.EditMode = true;
                 ChangePage(moviePageVM.View);
             });
@@ -124,7 +124,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.RemoveActor(SelectedPerson);
+                model.RemovePerson(SelectedPerson);
                 model.GetActorsList();
             });
         }

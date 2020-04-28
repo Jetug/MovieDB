@@ -97,10 +97,11 @@
     <Compile Include="Tables\Account.cs" />
     <Compile Include="Tables\Actor.cs" />
     <Compile Include="Tables\Director.cs" />
+    <Compile Include="Tables\Genre.cs" />
     <Compile Include="Tables\IPerson.cs" />
     <Compile Include="ViewModel\ActorAddingVM.cs" />
-    <Compile Include="ViewModel\ActorPageVM.cs" />
-    <Compile Include="ViewModel\ActorsListVM.cs" />
+    <Compile Include="ViewModel\PersonPageVM.cs" />
+    <Compile Include="ViewModel\PersonListVM.cs" />
     <Compile Include="ViewModel\AuthorizationWindowVM.cs" />
     <Compile Include="ViewModel\MovieAddingVM.cs" />
     <Compile Include="ViewModel\MoviePageVM.cs" />

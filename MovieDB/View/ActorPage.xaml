@@ -8,14 +8,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="580" d:DesignWidth="830"
       Title="ActorPage">
-
     <Grid>
         <Image 
             Source="{Binding Actor.Photo}"
             HorizontalAlignment="Left" Height="310"
             Margin="22,22,0,0" 
             VerticalAlignment="Top" Width="234"/>
-
         <StackPanel HorizontalAlignment="Left" 
                     Margin="402,43,0,0"
                     Height="25" Width="362"
@@ -26,22 +24,6 @@
             <TextBox Text="{Binding Actor.Surname}" IsReadOnly="{Binding ReadOnly}"/>
             <TextBox Text="{Binding Actor.Patronymic}" IsReadOnly="{Binding ReadOnly}"/>
         </StackPanel>
-        <!--<TextBox
-            x:Name="title"
-            Text="{Binding Movie.Title}" 
-            IsReadOnly="{Binding ReadOnly}"
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="402,43,0,0"
-            Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding TitleChanged}"
-                        CommandParameter= "{Binding ElementName=title}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            
-        </TextBox>-->
         <Label 
             Content="Имя" 
             HorizontalAlignment="Left" 
@@ -75,18 +57,11 @@
             Margin="492,83,0,0" 
             Width="60" Height="25"/>
         <Button 
-            Content="Добавить" 
-            Command="{Binding AddActor}"
-            Visibility="{Binding Visibility}"
-            HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="276,494,0,0" 
-            Width="103" Height="50"/>
-        <Button 
             Content="Сохранить" 
-            Command="{Binding EditActor}"
+            Command="{Binding EditPerson}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
-            Margin="398,493,0,0" 
+            Margin="402,494,0,0" 
             Width="103" Height="50"/>
         <Button 
             Content="Редактировать" 
@@ -104,7 +79,7 @@
             Width="115" Height="37"/>
         <Button 
             Content="Удалить" 
-            Command="{Binding RemoveActor}"
+            Command="{Binding RemovePerson}"
             Visibility="{Binding Visibility}"
             HorizontalAlignment="Left"  VerticalAlignment="Top" 
             Margin="661,494,0,0" 
@@ -118,13 +93,6 @@
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="402,121,0,0"
             Height="25" Width="362">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction 
-                        Command="{Binding DurationChanged}"
-                        CommandParameter= "{Binding ElementName=country}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TextBox>
         <Label 
             Content="Фильмография" 

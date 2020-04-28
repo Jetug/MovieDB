@@ -63,6 +63,17 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
+
+        private Movie selectedMovie;
+        public Movie SelectedMovie
+        {
+            get => selectedMovie;
+            set
+            {
+                selectedMovie = value;
+                OnProperteyChanged();
+            }
+        }
         #endregion
 
         #region Команды
@@ -79,11 +90,8 @@ namespace MovieDB.ViewModel
             get => new DelegateCommand((obj) =>
             {
                 MoviePageVM moviePageVM = new MoviePageVM();
-
-                int i = ((ListBox)obj).SelectedIndex;
-
                 moviePageVM.ChangePage = ChangePage;
-                moviePageVM.Movie = MoviesList[i];
+                moviePageVM.Movie = SelectedMovie;
                 ChangePage(moviePageVM.View);
             });
         }
@@ -102,7 +110,8 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                
+                model.RemoveMovie(SelectedMovie);
+                model.GetMoviesList();
             });
         }
         #endregion

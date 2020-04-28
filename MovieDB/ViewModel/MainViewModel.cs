@@ -64,8 +64,8 @@ namespace MovieDB.ViewModel
         EntityModel model = new EntityModel();
 
         MoviesListVM moviesListVM = new MoviesListVM();
-        ActorsListVM actorsListVM = new ActorsListVM();
-        ActorsListVM directorsListVM = new ActorsListVM();
+        PersonListVM actorsListVM = new PersonListVM();
+        PersonListVM directorsListVM = new PersonListVM();
 
         private Page frameContent;
         public Page FrameContent

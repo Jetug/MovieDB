@@ -12,7 +12,7 @@ namespace MovieDB.Tables
         public string Patronymic { get; set; } = null;
         public string Country { get; set; }
         public DateTime Birth_Date { get; set; } = new DateTime(DateTime.Now.Year, 1, 1);
-        public virtual ICollection<Movie> Movies { get; set; } //= new List<Movie>();
+        public virtual ICollection<Movie> Movies { get; set; }
 
         public Director()
         {

@@ -146,33 +146,7 @@ namespace MovieDB.ViewModel
         #endregion
 
         #region Commands
-
-        public ICommand Edit
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                EditMode = true;
-            });
-        }
-
-        public ICommand TitleChanged
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                Movie.Title = ((TextBox)obj).Text;
-                OnProperteyChanged("Movie");
-            });
-        }
-
-        public ICommand DescriptionChanged
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                Movie.Description = ((TextBox)obj).Text;
-                OnProperteyChanged("Movie");
-            });
-        }
-        
+                
         public ICommand EditCover
         {
             get => new DelegateCommand((obj) =>
@@ -193,54 +167,19 @@ namespace MovieDB.ViewModel
             });
         }
 
-        public ICommand DurationChanged
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                try
-                {
-                    Movie.Duration = int.Parse(((TextBox)obj).Text);
-                }
-                catch (FormatException)
-                {
-                }
-                OnProperteyChanged("Movie");
-            });
-        }
-
-        public ICommand YearChanged
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                try
-                {
-                    Movie.Year = int.Parse(((TextBox)obj).Text);
-                }
-                catch (FormatException)
-                {
-                }
-                
-                OnProperteyChanged("Movie");
-            });
-        }
-
-        public ICommand AddMovie
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                model.RecordMovie(Movie);
-            });
-        }
-
         public ICommand EditMovie
         {
             get => new DelegateCommand((obj) =>
-            { 
-                model.UpdateMovie(Movie);
-                //if (Mode = RecordMode.Adding)
-                //    model.RecordMovie(Movie);
-                //else
-                //    model.UpdateMovie(Movie);
+            {
+                model.AddOrUpdate(Movie);
+            });
+        }
+
+        public ICommand Edit
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                EditMode = true;
             });
         }
 
@@ -287,7 +226,7 @@ namespace MovieDB.ViewModel
         {
             if (person != null)
             {
-                ActorPageVM actorPageVM = new ActorPageVM();
+                PersonPageVM actorPageVM = new PersonPageVM();
 
                 actorPageVM.Actor = person;
                 ChangePage(actorPageVM.View);

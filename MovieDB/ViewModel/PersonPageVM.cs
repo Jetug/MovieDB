@@ -9,16 +9,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace MovieDB.ViewModel
 {
-    class ActorPageVM : INotifyPropertyChanged
+    class PersonPageVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,7 +24,7 @@ namespace MovieDB.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public ActorPageVM()
+        public PersonPageVM()
         {
             ActorPage actorPage = new ActorPage();
             actorPage.DataContext = this;
@@ -102,6 +99,7 @@ namespace MovieDB.ViewModel
             }
         }
         #endregion
+
         private IPerson actor = new Actor();
         public IPerson Actor
         {
@@ -241,30 +239,21 @@ namespace MovieDB.ViewModel
                 EditMode = true;
             });
         }
-        
-        public ICommand AddActor
+
+        public ICommand EditPerson
         {
             get => new DelegateCommand((obj) =>
             {
                 Actor.Birth_Date = new DateTime(Year, Month, Day);
-                model.RecordActor(Actor);
+                model.AddOrUpdate(Actor);
             });
         }
 
-        public ICommand EditActor
+        public ICommand RemovePerson
         {
             get => new DelegateCommand((obj) =>
             {
-                Actor.Birth_Date = new DateTime(Year, Month, Day);
-                model.UpdateActor(Actor);
-            });
-        }
-
-        public ICommand RemoveActor
-        {
-            get => new DelegateCommand((obj) =>
-            {
-                model.RemoveActor(Actor);
+                model.RemovePerson(Actor);
             });
         }
 

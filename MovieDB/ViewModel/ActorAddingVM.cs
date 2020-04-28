@@ -2,15 +2,11 @@
 using MovieDB.Tables;
 using MovieDB.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MovieDB.ViewModel
@@ -41,8 +37,6 @@ namespace MovieDB.ViewModel
         public Action<ObservableCollection<Actor>> SaveChanges;
 
         #region Свойства
-        //public List<Actor> NewActors { get; set; }
-
         private string searchString;
         public string SearchString
         {
@@ -131,7 +125,6 @@ namespace MovieDB.ViewModel
             {
                 Actor actor = (Actor)SelectedActor1;
                 AddedActors.Remove(actor);
-                //NewActors.Remove(actor);
                 AllActors.Add(actor);
             });
         }
@@ -142,7 +135,6 @@ namespace MovieDB.ViewModel
             {
                 Actor actor = (Actor)SelectedActor2;
                 AddedActors.Add(actor);
-                //NewActors.Add(actor);
                 AllActors.Remove(actor);
             });
         }
@@ -174,9 +166,11 @@ namespace MovieDB.ViewModel
 
         #endregion
 
+        #region Мтоды
         public void ShowDialog()
         {
             actorAdding.ShowDialog();
         }
+        #endregion
     }
 }
