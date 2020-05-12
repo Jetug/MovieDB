@@ -10,7 +10,7 @@
       Title="ActorPage">
     <Grid>
         <Image 
-            Source="{Binding Actor.Photo}"
+            Source="{Binding Person.Photo}"
             HorizontalAlignment="Left" Height="310"
             Margin="22,22,0,0" 
             VerticalAlignment="Top" Width="234"/>
@@ -20,9 +20,9 @@
                     VerticalAlignment="Top"
                     Orientation="Horizontal">
 
-            <TextBox Text="{Binding Actor.Name}" IsReadOnly="{Binding ReadOnly}"/>
-            <TextBox Text="{Binding Actor.Surname}" IsReadOnly="{Binding ReadOnly}"/>
-            <TextBox Text="{Binding Actor.Patronymic}" IsReadOnly="{Binding ReadOnly}"/>
+            <TextBox Text="{Binding Person.Name}" IsReadOnly="{Binding ReadOnly}"/>
+            <TextBox Text="{Binding Person.Surname}" IsReadOnly="{Binding ReadOnly}"/>
+            <TextBox Text="{Binding Person.Patronymic}" IsReadOnly="{Binding ReadOnly}"/>
         </StackPanel>
         <Label 
             Content="Имя" 
@@ -88,7 +88,7 @@
             Content="Место рождения" HorizontalAlignment="Left" Margin="284,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.196,0.647" Width="113" Height="25"/>
         <TextBox
             x:Name="country"
-            Text="{Binding Actor.Сountry}" 
+            Text="{Binding Person.Сountry}" 
             IsReadOnly="{Binding ReadOnly}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="402,121,0,0"

@@ -42,10 +42,6 @@ namespace MovieDB.ViewModel
             {
                 Years.Add(i);
             }
-
-            Day = Actor.Birth_Date.Day;
-            Month = Actor.Birth_Date.Month;
-            Year = Actor.Birth_Date.Year;
         }
 
         public Action<Page> ChangePage;
@@ -100,17 +96,22 @@ namespace MovieDB.ViewModel
         }
         #endregion
 
-        private IPerson actor = new Actor();
-        public IPerson Actor
+        private IPerson person;
+        public IPerson Person
         {
-            get => actor;
+            get => person;
             set
             {
-                actor = value;
-                Movies = new ObservableCollection<Movie>(Actor.Movies);
+                person = value;
+                Movies = new ObservableCollection<Movie>(Person.Movies);
                 Day = value.Birth_Date.Day;
                 Month = value.Birth_Date.Month;
                 Year = value.Birth_Date.Year;
+
+                Day = Person.Birth_Date.Day;
+                Month = Person.Birth_Date.Month;
+                Year = Person.Birth_Date.Year;
+
                 OnProperteyChanged();
             }
         }
@@ -226,7 +227,7 @@ namespace MovieDB.ViewModel
                 if (fileDialog.ShowDialog() == true) fileName = fileDialog.FileName;
                 if (fileName != "")
                 {
-                    Actor.Photo = File.ReadAllBytes(fileName);
+                    Person.Photo = File.ReadAllBytes(fileName);
                 }
                 OnProperteyChanged("Actor");
             });
@@ -244,8 +245,8 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                Actor.Birth_Date = new DateTime(Year, Month, Day);
-                model.AddOrUpdate(Actor);
+                Person.Birth_Date = new DateTime(Year, Month, Day);
+                model.AddOrUpdate(Person);
             });
         }
 
@@ -253,7 +254,7 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                model.RemovePerson(Actor);
+                model.RemovePerson(Person);
             });
         }
 
@@ -275,11 +276,11 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                MovieAddingVM movieAddingVM = new MovieAddingVM(new ObservableCollection<Movie>(Actor.Movies));
+                MovieAddingVM movieAddingVM = new MovieAddingVM(new ObservableCollection<Movie>(Person.Movies));
                 movieAddingVM.SaveChanges = (movies) =>
                 {
                     Movies = movies;
-                    Actor.Movies = movies.ToList();
+                    Person.Movies = movies.ToList();
                 };
                 movieAddingVM.ShowDialog();
             });

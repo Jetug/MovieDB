@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using MovieDB.Tables;
 using MovieDB.Model;
 using System.Windows.Controls;
-using MovieDB.View;
 using System.Collections.ObjectModel;
 using System.Windows;
 

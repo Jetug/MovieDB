@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MovieDB.Tables
 {
@@ -20,23 +19,11 @@ namespace MovieDB.Tables
             Movies = new HashSet<Movie>();
         }
 
-        //public Actor(int id, byte[] photo, string name, string surname, string patronymic, string country, DateTime birthDate, ICollection<Movie> movies)
-        //{
-        //    Id = id;
-        //    Photo = photo;
-        //    Name = name;
-        //    Surname = surname;
-        //    Patronymic = patronymic;
-        //    Country = country;
-        //    Birth_Date = birthDate;
-        //    Movies = movies;
-        //    //Movies = new List<Movie>();
-        //}
-
         public override bool Equals(object obj)
         {
-            Actor actor = (Actor)obj;
-            return Id == actor.Id;
+            if (obj is Actor)
+                return Id == ((Actor)obj).Id;
+            return false;
         }
 
         public override int GetHashCode()

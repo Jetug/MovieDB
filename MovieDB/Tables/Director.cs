@@ -21,8 +21,9 @@ namespace MovieDB.Tables
 
         public override bool Equals(object obj)
         {
-            Director director = (Director)obj;
-            return Id == director.Id;
+            if (obj is Director) 
+                return Id == ((Director)obj).Id;
+            return false;
         }
 
         public override int GetHashCode()

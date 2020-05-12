@@ -1,16 +1,9 @@
 ﻿using MovieDB.Model;
 using MovieDB.Tables;
 using MovieDB.View;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 
@@ -92,7 +85,7 @@ namespace MovieDB.ViewModel
                     CanContinue = true;
                     authorization.Close();
                 }
-                else MessageBox.Show("Не правильный логин или пароль");
+                else MessageBox.Show("Неправильный логин или пароль");
             });
         }
         #endregion

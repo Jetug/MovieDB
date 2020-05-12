@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище MoviesDBModelContainer" CdmEntityContainer="MoviesEntities">
+    <EntitySetMapping Name="Actors">
+      <EntityTypeMapping TypeName="MoviesDBModel.Actors">
+        <MappingFragment StoreEntitySet="Actors">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Directors">
+      <EntityTypeMapping TypeName="MoviesDBModel.Directors">
+        <MappingFragment StoreEntitySet="Directors">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genres">
+      <EntityTypeMapping TypeName="MoviesDBModel.Genres">
+        <MappingFragment StoreEntitySet="Genres">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movies">
+      <EntityTypeMapping TypeName="MoviesDBModel.Movies">
+        <MappingFragment StoreEntitySet="Movies">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="cover" ColumnName="cover" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="year" ColumnName="year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="MoviesDBModel.Accounts">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MoviesActors" TypeName="MoviesDBModel.MoviesActors" StoreEntitySet="MoviesActors">
+      <EndProperty Name="Actors">
+        <ScalarProperty Name="id" ColumnName="actor_id" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="id" ColumnName="movie_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MoviesDirectors" TypeName="MoviesDBModel.MoviesDirectors" StoreEntitySet="MoviesDirectors">
+      <EndProperty Name="Directors">
+        <ScalarProperty Name="id" ColumnName="director_id" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="id" ColumnName="movie_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MoviesGenres" TypeName="MoviesDBModel.MoviesGenres" StoreEntitySet="MoviesGenres">
+      <EndProperty Name="Genres">
+        <ScalarProperty Name="name" ColumnName="genre" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="id" ColumnName="movie_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

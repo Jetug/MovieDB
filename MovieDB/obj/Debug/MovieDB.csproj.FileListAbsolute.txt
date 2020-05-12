@@ -37,3 +37,7 @@ C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\AuthorizationWindow.g.cs
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\AuthorizationWindow.baml
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MovieAdding.g.cs
 C:\Projects\C#\MovieDB\MovieDB\obj\Debug\View\MovieAdding.baml
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.csproj.CoreCompileInputs.cache
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\ru\EntityFramework.resources.dll
+C:\Projects\C#\MovieDB\MovieDB\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Projects\C#\MovieDB\MovieDB\obj\Debug\MovieDB.csproj.Fody.CopyLocal.cache

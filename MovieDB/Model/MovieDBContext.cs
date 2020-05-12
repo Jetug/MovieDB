@@ -10,6 +10,7 @@ namespace MovieDB.Model
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Director> Directors { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -49,6 +50,25 @@ namespace MovieDB.Model
                     md.MapLeftKey("movie_id");
                     md.MapRightKey("director_id");
                     md.ToTable("MoviesDirectors");
+                });
+
+            modelBuilder.Entity<Genre>()
+                .HasMany<Movie>(g => g.Movies)
+                .WithMany(m => m.Genres)
+                .Map(md =>
+                {
+                    md.MapLeftKey("movie_id");
+                    md.MapRightKey("genre_id");
+                    md.ToTable("MoviesGenres");
+                });
+            modelBuilder.Entity<Movie>()
+                .HasMany<Genre>(m => m.Genres)
+                .WithMany(g => g.Movies)
+                .Map(md =>
+                {
+                    md.MapLeftKey("movie_id");
+                    md.MapRightKey("genre_id");
+                    md.ToTable("MoviesGenres");
                 });
 
             base.OnModelCreating(modelBuilder);

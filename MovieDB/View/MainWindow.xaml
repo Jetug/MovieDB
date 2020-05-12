@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:MovieDB.ViewModel"
-        xmlns:local="clr-namespace:MovieDB"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="1025">
     <Window.DataContext>
@@ -42,26 +41,5 @@
             Margin="12,216,0,0"
             VerticalAlignment="Top" 
             Width="135" Height="74"/>
-
-        <!--<TabControl TabStripPlacement="Left">
-            <TabItem Name="fontweight" Header="Фильмы" 
-                     Width="150" Height="75" FontSize="16">
-                  
-            </TabItem>
-
-            <TabItem Name="fontsize" Header="Актёты" 
-                     Width="150" Height="75" FontSize="16">
-                <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        <Frame 
-                            Content="{Binding ActorFrameContent}" 
-                            HorizontalAlignment="Left" 
-                            Height="600" Width="850"
-                            VerticalAlignment="Top"/>
-                    </TextBlock>
-                </TabItem.Content>
-            </TabItem>
-        </TabControl>-->
-
     </Grid>
 </Window>

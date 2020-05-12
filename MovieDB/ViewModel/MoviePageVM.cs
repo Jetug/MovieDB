@@ -3,7 +3,6 @@ using MovieDB.Model;
 using MovieDB.Tables;
 using MovieDB.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -12,10 +11,19 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace MovieDB.ViewModel
 {
+    class TextItem
+    {
+        public TextItem(string text)
+        {
+            Text = text;
+        }
+
+        public string Text { get; set; }
+    }
+
     class MoviePageVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,6 +58,12 @@ namespace MovieDB.ViewModel
                 movie = value;
                 Actors = new ObservableCollection<Actor>(Movie.Actors);
                 Directors = new ObservableCollection<Director>(Movie.Directors);
+
+                foreach (var genre in Movie.Genres)
+                {
+                    Genres.Add(new TextItem(genre.Name));
+                }
+
                 OnProperteyChanged();
             }
         }
@@ -99,6 +113,17 @@ namespace MovieDB.ViewModel
             }
         }
         #endregion
+
+        private ObservableCollection<TextItem> genres = new ObservableCollection<TextItem>();
+        public ObservableCollection<TextItem> Genres
+        {
+            get => genres;
+            set
+            {
+                genres = value;
+                OnProperteyChanged();
+            }
+        }
 
         private ObservableCollection<Actor> actors;
         public ObservableCollection<Actor> Actors
@@ -220,6 +245,20 @@ namespace MovieDB.ViewModel
                 actorAddingVM.ShowDialog();
             });
         }
+        
+        public ICommand AddDirector
+        {
+            get => new DelegateCommand((obj) =>
+            {
+                DirectorAddingVM directorAddingVM = new DirectorAddingVM(new ObservableCollection<Director>(Movie.Directors.ToList()));
+                directorAddingVM.SaveChanges = (directors) =>
+                {
+                    Directors = directors;
+                    Movie.Directors = directors.ToList();
+                };
+                directorAddingVM.ShowDialog();
+            });
+        }
         #endregion
 
         private void ShowPerson(IPerson person)
@@ -228,7 +267,7 @@ namespace MovieDB.ViewModel
             {
                 PersonPageVM actorPageVM = new PersonPageVM();
 
-                actorPageVM.Actor = person;
+                actorPageVM.Person = person;
                 ChangePage(actorPageVM.View);
             }
         }

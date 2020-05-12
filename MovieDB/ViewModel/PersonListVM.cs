@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using MovieDB.View;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using MovieDB.Model;
 using MovieDB.Tables;
@@ -26,6 +22,7 @@ namespace MovieDB.ViewModel
         public PersonListVM()
         {
             model.ShowActors = (actorsList) => ActorsList = new ObservableCollection<IPerson>(actorsList);
+            model.ShowDirectors = (actorsList) => ActorsList = new ObservableCollection<IPerson>(actorsList);
             model.BtnEnabled = () => IsEnabled = true;
             model.BtnNotEnabled = () => IsEnabled = false;
 
@@ -89,13 +86,28 @@ namespace MovieDB.ViewModel
                 OnProperteyChanged();
             }
         }
+
+        public string AddBtnText
+        {
+            get
+            {
+                if (ActorsList[0] is Actor)
+                    return "Добавить актёра";
+                else
+                    return "Добавить режиссёра";
+            }
+        }
         #endregion
 
-        public ICommand ShowActors
+        public ICommand ShowPersons
         {
             get => new DelegateCommand((obj) =>
             {
-                model.GetActorsList();
+                
+                if (ActorsList[0] is Actor)
+                    model.GetActorsList();
+                else
+                    model.GetDirectorsList();
             });
         }
 
@@ -103,10 +115,10 @@ namespace MovieDB.ViewModel
         {
             get => new DelegateCommand((obj) =>
             {
-                PersonPageVM actorPageVM = new PersonPageVM();
-                actorPageVM.Actor = SelectedPerson;
-                actorPageVM.ChangePage = ChangePage;
-                ChangePage(actorPageVM.View);
+                PersonPageVM personPageVM = new PersonPageVM();
+                personPageVM.Person = SelectedPerson;
+                personPageVM.ChangePage = ChangePage;
+                ChangePage(personPageVM.View);
             });
         }
 
@@ -116,6 +128,10 @@ namespace MovieDB.ViewModel
             {
                 PersonPageVM moviePageVM = new PersonPageVM();
                 moviePageVM.EditMode = true;
+                if (ActorsList[0] is Actor)
+                    moviePageVM.Person = new Actor();
+                else
+                    moviePageVM.Person = new Director();
                 ChangePage(moviePageVM.View);
             });
         }

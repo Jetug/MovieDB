@@ -1,13 +1,8 @@
 ﻿using MovieDB.Tables;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Data.Entity;
 
 namespace MovieDB.Model
 {
@@ -285,7 +280,7 @@ namespace MovieDB.Model
         {
             using (MovieDBContext db = new MovieDBContext())
             {
-                ShowMovies(db.Movies.Include("Actors").Include("Directors").ToList());
+                ShowMovies(db.Movies.Include("Actors").Include("Directors").Include("Genres").ToList());
             }
             BtnEnabled?.Invoke();
         }
